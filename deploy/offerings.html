@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kindling — Offerings</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  /* ============================================================
+     OFFERINGS
+     ============================================================ */
+
+  /* ---------- Hero ---------- */
+  .o-hero {
+    position: relative;
+    background: var(--parchment-50);
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .o-hero-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: var(--space-9) var(--space-6) var(--space-7);
+    text-align: center;
+  }
+  .o-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-5);
+  }
+  .o-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember-500); box-shadow: 0 0 0 4px var(--ember-100);}
+  .o-h {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(48px, 6vw, 88px); line-height: 0.98; letter-spacing: -0.035em;
+    color: var(--ink-900); margin: 0 auto; max-width: 18ch; text-wrap: balance;
+  }
+  .o-h .it { font-family: var(--font-display); font-style: italic; font-weight: 400; letter-spacing: -0.02em; color: var(--ember-600); }
+  .o-lede {
+    max-width: 660px; margin: var(--space-5) auto 0;
+    font-size: 19px; line-height: 1.55; color: var(--ink-300);
+  }
+
+  /* Simple model line */
+  .model {
+    max-width: 1280px; margin: 0 auto;
+    padding: var(--space-6) var(--space-6) var(--space-8);
+    display: flex; flex-wrap: wrap; gap: var(--space-3);
+    justify-content: center; align-items: center;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 22px; color: var(--ink-300);
+    text-align: center;
+  }
+  .model b {
+    font-family: var(--font-utility); font-style: normal;
+    font-weight: 700; color: var(--ink-900);
+    letter-spacing: -0.015em;
+    background: var(--ember-100);
+    padding: 2px 12px; border-radius: 999px;
+    margin: 0 4px;
+  }
+  .model b.dark { background: var(--ink-900); color: var(--parchment-50); }
+  .model b.sage { background: var(--sage-200); color: var(--ink-900); }
+  .model b.plum { background: var(--plum-200); color: var(--ink-900); }
+
+  /* ---------- Main offerings (2 large cards) ---------- */
+  .main-offerings {
+    padding: var(--space-9) 0 var(--space-7);
+    background: var(--color-bg);
+  }
+  .mo-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5);
+  }
+  @media (max-width: 1000px) { .mo-inner { grid-template-columns: 1fr; } }
+
+  .mo-card {
+    position: relative;
+    background: var(--color-bg-elev);
+    border: 1.5px solid var(--ink-900);
+    border-radius: var(--radius-xl);
+    padding: var(--space-7);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .mo-card.featured {
+    background: var(--ember-500);
+    color: var(--parchment-50);
+    box-shadow: var(--shadow-lg);
+  }
+  .mo-card.featured .grain {
+    position: absolute; inset: 0;
+    background-image: url('assets/texture/paper-grain.png');
+    background-size: 400px; opacity: 0.4; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .mo-card .mo-content { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
+
+  .mo-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: var(--space-3);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+    margin-bottom: var(--space-5);
+  }
+  .mo-card.featured .mo-head { border-bottom-color: rgba(20,17,13,0.22); }
+
+  .mo-tag {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); display: inline-flex; align-items: center; gap: 8px;
+  }
+  .mo-card.featured .mo-tag { color: rgba(20,17,13,0.78); }
+  .mo-tag .badge {
+    background: var(--plum-200); color: var(--plum-500);
+    padding: 3px 8px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .mo-card.featured .mo-tag .badge { background: var(--ink-900); color: var(--parchment-50); }
+
+  .mo-card h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(40px, 4.6vw, 64px); line-height: 1;
+    letter-spacing: -0.03em; color: var(--ink-900);
+    margin: 0 0 var(--space-3); text-wrap: balance;
+  }
+  .mo-card.featured h2 { color: var(--parchment-50); }
+  .mo-card h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .mo-card.featured h2 .it { color: var(--ink-900); }
+
+  .mo-pitch {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 22px; line-height: 1.35;
+    color: var(--ink-900); margin: 0 0 var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    background: var(--ember-50);
+    border-left: 3px solid var(--ember-500);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+  .mo-card.featured .mo-pitch {
+    background: rgba(20, 17, 13, 0.1);
+    border-left-color: var(--ink-900);
+    color: var(--ink-900);
+  }
+
+  .mo-price {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 44px; letter-spacing: -0.025em; line-height: 1;
+    color: var(--ink-900); margin: 0 0 var(--space-5);
+  }
+  .mo-card.featured .mo-price { color: var(--parchment-50); }
+  .mo-price sub {
+    font-family: var(--font-mono); font-style: normal;
+    font-size: 13px; letter-spacing: 0.04em;
+    color: var(--ink-300); margin-left: 6px; vertical-align: baseline;
+    font-weight: 500;
+  }
+  .mo-card.featured .mo-price sub { color: rgba(20, 17, 13, 0.78); }
+
+  .mo-section {
+    margin-bottom: var(--space-5);
+  }
+  .mo-section h6 {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); font-weight: 500;
+  }
+  .mo-card.featured .mo-section h6 { color: rgba(20,17,13,0.7); }
+
+  .mo-section p { margin: 0 0 var(--space-3); font-size: 16px; line-height: 1.5; color: var(--ink-900); }
+  .mo-card.featured .mo-section p { color: var(--parchment-50); }
+
+  .mo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+  .mo-list li {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 15px; line-height: 1.45; color: var(--ink-900);
+  }
+  .mo-card.featured .mo-list li { color: var(--parchment-50); }
+  .mo-list li svg {
+    flex: none; margin-top: 4px; width: 14px; height: 14px;
+    color: var(--ember-600);
+  }
+  .mo-card.featured .mo-list li svg { color: var(--ink-900); }
+
+  .mo-foot {
+    margin-top: auto;
+    padding-top: var(--space-5);
+    display: flex; gap: var(--space-3);
+  }
+
+  .mo-card .who {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 18px; color: var(--ink-300);
+    margin: 0 0 var(--space-4);
+  }
+  .mo-card.featured .who { color: rgba(20, 17, 13, 0.78); }
+
+  /* ---------- Bench ---------- */
+  .bench {
+    padding: var(--space-9) 0;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .bench-inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+  .bench-head { max-width: 720px; margin: 0 0 var(--space-7); }
+  .bench-eyebrow {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .bench-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember-500); }
+  .bench h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(36px, 4.2vw, 60px); line-height: 1; letter-spacing: -0.03em;
+    color: var(--ink-900); margin: 0 0 var(--space-4); text-wrap: balance;
+  }
+  .bench h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .bench-head p {
+    font-size: 17px; line-height: 1.55; color: var(--ink-300);
+    margin: 0; max-width: 60ch;
+  }
+  .bench-head p b { color: var(--ink-900); font-weight: 600; }
+
+  .bench-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
+  @media (max-width: 980px) { .bench-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .bench-grid { grid-template-columns: 1fr; } }
+  .bench-card {
+    background: var(--color-bg-elev);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex; flex-direction: column; gap: var(--space-3);
+  }
+  .bench-ic {
+    width: 40px; height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--ember-50);
+    border: 1px solid var(--ember-100);
+    color: var(--ember-700);
+    display: grid; place-items: center;
+  }
+  .bench-ic svg { width: 20px; height: 20px; }
+  .bench-card h3 {
+    margin: 0;
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 19px; letter-spacing: -0.015em; line-height: 1.15;
+    color: var(--ink-900);
+  }
+  .bench-card p {
+    margin: 0; font-size: 14px; line-height: 1.5;
+    color: var(--ink-300);
+  }
+
+  .bench-foot {
+    margin-top: var(--space-7);
+    padding: var(--space-5) var(--space-6);
+    border-left: 3px solid var(--ember-500);
+    background: var(--ember-50);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    max-width: 720px;
+  }
+  .bench-foot .bf-eyebrow {
+    display: block;
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ember-700);
+    margin-bottom: 6px;
+  }
+  .bench-foot p {
+    margin: 0;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 18px; line-height: 1.45;
+    color: var(--ink-900);
+  }
+
+  /* ---------- Orchestration packs ---------- */
+  .packs {
+    padding: var(--space-9) 0;
+    background: var(--parchment-100);
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .packs-inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+  .packs-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9);
+    align-items: end; margin-bottom: var(--space-7);
+  }
+  @media (max-width: 900px) { .packs-head { grid-template-columns: 1fr; gap: var(--space-5); } }
+  .packs-head .label {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .packs-head .label .badge {
+    background: var(--sage-200); color: var(--ink-900);
+    padding: 3px 8px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 10px;
+  }
+  .packs-head h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(40px, 4.4vw, 64px); line-height: 1; letter-spacing: -0.03em;
+    margin: 0; text-wrap: balance; max-width: 16ch;
+  }
+  .packs-head h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .packs-head .right { display: flex; flex-direction: column; gap: var(--space-4); }
+  .packs-head p {
+    font-size: 17px; line-height: 1.55; color: var(--ink-300); margin: 0;
+    max-width: 50ch;
+  }
+  .packs-head p b { color: var(--ink-900); font-weight: 600; }
+  .packs-head .pitch {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 22px; color: var(--ink-900);
+    border-left: 3px solid var(--sage-500);
+    padding-left: var(--space-4);
+  }
+
+  /* Creative bench strip */
+  .bench-strip {
+    margin-bottom: var(--space-7);
+    padding: var(--space-6);
+    border: 1px solid var(--ink-900);
+    border-radius: var(--radius-xl);
+    background: var(--color-bg-elev);
+    text-align: center;
+  }
+  .bs-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-5);
+  }
+  .bs-eyebrow .bs-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember-500); }
+  .bs-row {
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+    gap: var(--space-5) var(--space-7);
+  }
+  .bs-logo {
+    font-size: 22px;
+    color: var(--ink-300); opacity: 0.85;
+    letter-spacing: -0.02em; white-space: nowrap;
+    transition: opacity var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+  }
+  .bs-logo:hover { color: var(--ink-900); opacity: 1; }
+  .bs-logo.serif { font-family: var(--font-display); font-style: italic; }
+  .bs-logo.utility { font-family: var(--font-utility); font-weight: 700; }
+  .bs-logo.body { font-family: var(--font-body); font-weight: 500; }
+  .bs-logo .bs-und { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+  .bs-logo .bs-d { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin: 0 2px 3px; vertical-align: middle; }
+  .bs-note {
+    margin-top: var(--space-5);
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--ink-200); letter-spacing: 0.04em;
+  }
+
+  /* How it works (orchestration) */
+  .orch-how {
+    display: grid; grid-template-columns: 1fr 28px 1fr 28px 1fr;
+    gap: var(--space-4);
+    align-items: stretch;
+    margin-bottom: var(--space-7);
+  }
+  @media (max-width: 900px) {
+    .orch-how { grid-template-columns: 1fr; }
+    .oh-arrow { display: none; }
+  }
+  .oh-step {
+    background: var(--color-bg-elev);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex; gap: var(--space-3); align-items: flex-start;
+  }
+  .oh-n {
+    flex: none;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--ember-500); color: var(--parchment-50);
+    display: grid; place-items: center;
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 14px;
+  }
+  .oh-body b {
+    display: block;
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 16px; letter-spacing: -0.015em;
+    color: var(--ink-900); margin-bottom: 4px;
+  }
+  .oh-body span {
+    font-size: 14px; line-height: 1.5; color: var(--ink-300);
+  }
+  .oh-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 28px;
+    color: var(--ember-600);
+  }
+
+  /* Pack card with "Done for you" tag instead of price */
+  .pack .pack-tag {
+    margin-top: auto;
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .pack .pack-tag::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--sage-500);
+  }
+
+  /* Packs foot */
+  .packs-foot {
+    margin-top: var(--space-6);
+    text-align: center;
+  }
+  .packs-foot p {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 18px; line-height: 1.5;
+    color: var(--ink-300); margin: 0;
+    max-width: 70ch; margin-inline: auto;
+  }
+  .packs-foot p a {
+    color: var(--ember-700);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .packs-inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+  .packs-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9);
+    align-items: end; margin-bottom: var(--space-7);
+  }
+  @media (max-width: 900px) { .packs-head { grid-template-columns: 1fr; gap: var(--space-5); } }
+  .packs-head .label {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .packs-head .label .badge {
+    background: var(--sage-200); color: var(--ink-900);
+    padding: 3px 8px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 10px;
+  }
+  .packs-head h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(40px, 4.4vw, 64px); line-height: 1; letter-spacing: -0.03em;
+    margin: 0; text-wrap: balance; max-width: 16ch;
+  }
+  .packs-head h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .packs-head .right {
+    display: flex; flex-direction: column; gap: var(--space-4);
+  }
+  .packs-head p {
+    font-size: 17px; line-height: 1.55; color: var(--ink-300); margin: 0;
+    max-width: 44ch;
+  }
+  .packs-head .range {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 28px; letter-spacing: -0.02em; color: var(--ink-900);
+  }
+  .packs-head .range sub {
+    font-family: var(--font-mono); font-size: 12px; color: var(--ink-300);
+    letter-spacing: 0.04em; margin-left: 8px; vertical-align: baseline;
+    font-weight: 500;
+  }
+  .packs-head .pitch {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 22px; color: var(--ink-900);
+    border-left: 3px solid var(--sage-500);
+    padding-left: var(--space-4);
+  }
+
+  .packs-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3);
+  }
+  @media (max-width: 1000px) { .packs-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 580px) { .packs-grid { grid-template-columns: 1fr; } }
+  .pack {
+    background: var(--color-bg-elev);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex; flex-direction: column; gap: var(--space-3);
+    min-height: 180px;
+    text-decoration: none; color: inherit;
+    transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .pack:hover { border-color: var(--ink-900); transform: translateY(-2px); }
+  .pack .ic {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--sage-200); color: var(--ink-900);
+    display: grid; place-items: center;
+  }
+  .pack .ic svg { width: 18px; height: 18px; }
+  .pack h4 {
+    margin: 0;
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 18px; letter-spacing: -0.015em; line-height: 1.15;
+    color: var(--ink-900);
+  }
+  .pack p { margin: 0; font-size: 13.5px; line-height: 1.45; color: var(--ink-300); }
+  .pack .from {
+    margin-top: auto;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-300); letter-spacing: 0.04em;
+  }
+  .pack .from b { color: var(--ink-900); font-weight: 600; }
+
+  /* ---------- FAQ ---------- */
+  .faq {
+    padding: var(--space-9) 0;
+    background: var(--color-bg);
+  }
+  .faq-inner { max-width: 920px; margin: 0 auto; padding: 0 var(--space-6); }
+  .faq h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(36px, 4vw, 56px); line-height: 1; letter-spacing: -0.03em;
+    margin: 0 0 var(--space-6); text-wrap: balance;
+  }
+  .faq h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .faq-list { display: flex; flex-direction: column; }
+  .faq details {
+    padding: var(--space-5) 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .faq details:last-child { border-bottom: 1px solid var(--color-line); }
+  .faq summary {
+    cursor: pointer; list-style: none;
+    font-family: var(--font-utility); font-weight: 600; font-size: 19px;
+    color: var(--ink-900); letter-spacing: -0.015em;
+    display: flex; justify-content: space-between; gap: var(--space-4);
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+";
+    font-family: var(--font-display); font-size: 28px;
+    color: var(--ember-600); transition: transform var(--dur-base) var(--ease-out);
+    line-height: 1;
+  }
+  .faq details[open] summary::after { content: "−"; }
+  .faq details > p { margin: var(--space-3) 0 0; max-width: 64ch; font-size: 16px; line-height: 1.6; color: var(--ink-300); }
+
+  /* ---------- CTA ---------- */
+  .cta-section {
+    position: relative;
+    background: var(--ember-500); color: var(--parchment-50);
+    padding: var(--space-10) 0; overflow: hidden;
+  }
+  .cta-section .grain {
+    position: absolute; inset: 0;
+    background-image: url('assets/texture/paper-grain.png');
+    background-size: 500px; opacity: 0.5; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .cta-inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); text-align: center; position: relative; z-index: 2;}
+  .cta-inner h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(48px, 6vw, 84px); line-height: 1; letter-spacing: -0.035em;
+    margin: 0 0 var(--space-5); color: var(--parchment-50);
+    text-wrap: balance; max-width: 18ch; margin-inline: auto;
+  }
+  .cta-inner h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ink-900); }
+  .cta-inner p { max-width: 540px; margin: 0 auto var(--space-7); font-size: 18px; line-height: 1.55; color: rgba(20, 17, 13, 0.8); }
+  .cta-actions { display: inline-flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+  .cta-actions .k-btn--primary { background: var(--ink-900); color: var(--parchment-50); }
+  .cta-actions .k-btn--ghost { border-color: var(--ink-900); color: var(--ink-900); }
+  .cta-actions .k-btn--ghost:hover { background: rgba(20,17,13,0.1); }
+</style>
+</head>
+<body>
+
+<div id="k-header-mount" data-mode="light" data-active="pricing"></div>
+
+<main>
+
+  <section class="o-hero">
+    <div class="o-hero-inner">
+      <div class="o-eyebrow"><span class="dot"></span>How you work with us</div>
+      <h1 class="o-h">One system. <span class="it">Two ways</span> to run it.</h1>
+      <p class="o-lede">
+        Two main offerings, plus orchestration packs — the big moves we ship when the system says it's time.
+      </p>
+    </div>
+
+    <!-- Simple model -->
+    <div class="model">
+      <b>OS</b><span>is the brain.</span>
+      <b class="dark">Function</b><span>is the weekly operator, non-stop.</span>
+      <b class="sage">Orchestration packs</b><span>are the big moves.</span>
+    </div>
+  </section>
+
+  <!-- ===================== TWO MAIN OFFERINGS ===================== -->
+  <section class="main-offerings">
+    <div class="mo-inner">
+
+      <!-- OS -->
+      <article class="mo-card" id="os">
+        <div class="mo-content">
+          <div class="mo-head">
+            <div class="mo-tag"><span class="badge">01 · Software-led</span></div>
+          </div>
+          <h2>Organic GTM <span class="it">OS</span></h2>
+          <p class="who">For teams that already have some marketing or founder execution.</p>
+          <div class="mo-price">
+            $2k<sub>/ month</sub>
+          </div>
+          <p class="mo-pitch">"Know who matters, what to do next, and whether the right people are moving."</p>
+
+          <div class="mo-section">
+            <h6>What you get</h6>
+            <ul class="mo-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Market Map — 20–500 people, accounts, lighthouses, competitors</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Strategy — positioning, belief gaps, 90-day arc</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Weekly Next Best Actions — ranked, ready to ship</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Competitor &amp; lighthouse tracking</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Signal &amp; analytics — named-person movement, in one view</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><b>Monthly strategist call</b> — senior operator, on your map</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Production workflow — briefs, approvals, publishing</li>
+            </ul>
+          </div>
+          <div class="mo-foot">
+            <a class="k-btn k-btn--primary" href="#book">Talk about the OS <span class="arrow">→</span></a>
+            <a class="k-btn k-btn--ghost" style="border-color: var(--ink-900); color: var(--ink-900);" href="product.html#intelligence">Tour the OS</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Function -->
+      <article class="mo-card featured" id="function">
+        <div class="grain"></div>
+        <div class="mo-content">
+          <div class="mo-head">
+            <div class="mo-tag"><span class="badge">02 · PMF wedge</span></div>
+          </div>
+          <h2>Organic GTM <span class="it">Function</span></h2>
+          <p class="who">For founder-led B2B companies that want it run for them, non-stop.</p>
+          <div class="mo-price">
+            $8k<sub>+ / month</sub>
+          </div>
+          <p class="mo-pitch">"We run your organic GTM loop every week. Non-stop. Everything — strategy, content, signal, analytics — in one smart system."</p>
+
+          <div class="mo-section">
+            <h6>Everything in the OS, plus</h6>
+            <ul class="mo-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><b>Weekly strategist review</b> — senior operator, every Monday</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Weekly brief + Loom — what we did, who moved, what's next</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Content &amp; scripts — drafted in your voice</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Light recurring execution — posts, clips, story drafts</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Production coordination across our operator bench</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Founder unblockers — the one thing we need from you, each week</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>All analytics in one place — nothing in your inbox to chase</li>
+            </ul>
+          </div>
+          <div class="mo-foot">
+            <a class="k-btn k-btn--on-ember-light" href="#book">Talk about Function <span class="arrow">→</span></a>
+            <a class="k-btn k-btn--ghost" style="border-color: var(--ink-900); color: var(--ink-900);" href="product.html">Tour the system</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== THE BENCH ===================== -->
+  <section class="bench">
+    <div class="bench-inner">
+      <div class="bench-head">
+        <div class="bench-eyebrow"><span class="dot"></span>The bench</div>
+        <h2>Industry-best operators. <span class="it">On your map.</span></h2>
+        <p>We don't subcontract to junior agencies or AI-only stacks. The strategists running your Function have <b>operated GTM at category-defining B2B companies</b>. The directors, writers and event leads on the orchestration bench have shipped the films, essays and stories that moved markets. They understand B2B — no onboarding needed.</p>
+      </div>
+
+      <div class="bench-grid">
+        <div class="bench-card">
+          <div class="bench-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></svg>
+          </div>
+          <h3>Creative strategists</h3>
+          <p>10+ years operating B2B GTM. Have run the loop, not just briefed it. On your map from day one.</p>
+        </div>
+        <div class="bench-card">
+          <div class="bench-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="m17 10 5-3v10l-5-3Z"/></svg>
+          </div>
+          <h3>Directors &amp; editors</h3>
+          <p>Built films you'd recognise. Founder docs, customer stories, manifesto cuts — the level your buyers actually stop scrolling for.</p>
+        </div>
+        <div class="bench-card">
+          <div class="bench-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M21 3 10 14"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+          </div>
+          <h3>Writers</h3>
+          <p>Bylines in the publications your buyers read. They write for the founder, not for the algorithm.</p>
+        </div>
+        <div class="bench-card">
+          <div class="bench-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg>
+          </div>
+          <h3>Event &amp; PR leads</h3>
+          <p>The rooms your 20–500 already want to be in. Curated, produced, followed up — by name.</p>
+        </div>
+      </div>
+
+      <div class="bench-foot">
+        <span class="bf-eyebrow">Why this matters</span>
+        <p>Senior people put on senior problems. The Function loop is run by a strategist who has built and exited a B2B company — not a junior account manager learning your space on your dime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ORCHESTRATION PACKS ===================== -->
+  <section class="packs" id="packs">
+    <div class="packs-inner">
+      <div class="packs-head">
+        <div>
+          <div class="label"><span class="badge">Add-on · Done for you</span></div>
+          <h2>Orchestration <span class="it">Packs.</span></h2>
+        </div>
+        <div class="right">
+          <p>For bigger moments — a launch film, a customer story, a lighthouse activation. We've vetted the world's best creative studios, directors, editors and writers. We brief them, we run them, we deliver. Think Airbnb for category-defining work — <b>without the cold search, the proposal back-and-forth, or the cost of a brand-name agency on retainer.</b></p>
+          <div class="pitch">"Best operators in the world. The right brief. One delivery."</div>
+        </div>
+      </div>
+
+      <!-- The creative bench -->
+      <div class="bench-strip">
+        <div class="bs-eyebrow"><span class="bs-dot"></span>The creative bench · vetted</div>
+        <div class="bs-row">
+          <span class="bs-logo serif">Praxis &amp; Loom</span>
+          <span class="bs-logo utility">NORTH EDITORIAL</span>
+          <span class="bs-logo body"><span class="bs-und">Atelier Forge</span></span>
+          <span class="bs-logo utility">LOCUS<span class="bs-d"></span></span>
+          <span class="bs-logo serif">Field Studio</span>
+          <span class="bs-logo body">MERCATOR</span>
+          <span class="bs-logo utility">CROWN+CO</span>
+          <span class="bs-logo serif">Tide &amp; Spark</span>
+        </div>
+        <div class="bs-note">[ World-class studios &amp; operators · final lineup supplied separately ]</div>
+      </div>
+
+      <!-- How it works strip -->
+      <div class="orch-how">
+        <div class="oh-step">
+          <div class="oh-n">1</div>
+          <div class="oh-body">
+            <b>The system surfaces the move.</b>
+            <span>From your Market Map, Strategy and Signal — not from a creative brief in your inbox.</span>
+          </div>
+        </div>
+        <div class="oh-arrow" aria-hidden="true">→</div>
+        <div class="oh-step">
+          <div class="oh-n">2</div>
+          <div class="oh-body">
+            <b>We brief the right operator.</b>
+            <span>From the vetted bench — directors, writers, editors, event leads who've shipped category-defining work.</span>
+          </div>
+        </div>
+        <div class="oh-arrow" aria-hidden="true">→</div>
+        <div class="oh-step">
+          <div class="oh-n">3</div>
+          <div class="oh-body">
+            <b>It ships. Tracked by name.</b>
+            <span>We run it end-to-end and tie every output back to a named person we wanted to move.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Packs grid (no prices) -->
+      <div class="packs-grid">
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 9.5 19 5l-1 6-4.5-1.5Z"/><path d="M9.5 14.5 5 19l6-1-1.5-4Z"/><path d="m13 11-2 2"/><path d="M19 5c-3 6-6 9-12 12"/></svg></div>
+          <h4>Launch campaign</h4>
+          <p>Product or category launch — scripted, filmed, written, distributed, followed up.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="m17 10 5-3v10l-5-3Z"/></svg></div>
+          <h4>Video shoot</h4>
+          <p>Director-led production. Founder doc, customer film, manifesto cut.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9 8.5 8.5 0 0 1 8.5 8.5Z"/></svg></div>
+          <h4>Customer story</h4>
+          <p>Interview, write, film, distribute. Real specifics, not platitudes.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg></div>
+          <h4>Event activation</h4>
+          <p>Curated dinners, salons, conference plays — rooms, follow-up, content capture.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h4>Fundraise warm-up</h4>
+          <p>3–6 month investor sequence — content, posts, lighthouse moves, signal.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h2l3.5 3.5A1 1 0 0 0 11 18V6a1 1 0 0 0-1.5-.9L6 9H4a1 1 0 0 0-1 1Z"/><path d="M16 7s2 1.5 2 5-2 5-2 5"/><path d="M20 4s3 2.5 3 8-3 8-3 8"/></svg></div>
+          <h4>PR / narrative push</h4>
+          <p>Pitch + place + amplify — landed against belief gaps, not vanity hits.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3"/><path d="M5 22h14"/><path d="M8 22 9 8h6l1 14"/><circle cx="12" cy="7" r="2"/></svg></div>
+          <h4>Lighthouse activation</h4>
+          <p>The named brands that move others — touch sequence + bespoke work.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+        <a class="pack" href="#book">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 21v-1a5 5 0 0 1 5-5"/><path d="M21 21v-1a5 5 0 0 0-5-5"/><circle cx="12" cy="16" r="3"/></svg></div>
+          <h4>Multi-exec content</h4>
+          <p>CEO, CTO, head of product on the field — each with a voice and arc.</p>
+          <div class="pack-tag">Done for you</div>
+        </a>
+      </div>
+
+      <div class="packs-foot">
+        <p>Every pack is scoped one-on-one — the work you actually need, at the best price the bench will accept. <a href="#book">Tell us the moment, we'll quote it.</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="faq">
+    <div class="faq-inner">
+      <h2>A few <span class="it">honest</span> questions.</h2>
+      <div class="faq-list">
+        <details>
+          <summary>Is this an agency?</summary>
+          <p>No, and yes. The OS is software you operate. The Function is a weekly operator we run. Packs are large pieces of work, executed by the best operators in our bench. We don't book retainers for "marketing services" — every engagement is tied to a Market Map and a 90-day arc.</p>
+        </details>
+        <details>
+          <summary>Can we start with the OS and add the Function later?</summary>
+          <p>Yes. Most companies do. We set up the Market Map and Strategy in the first 2 weeks, then your team runs the weekly loop. If you decide you want us operating it, we move you to the Function tier with no setup repeat.</p>
+        </details>
+        <details>
+          <summary>How are Packs priced?</summary>
+          <p>Packs are scoped one-on-one. We brief the right operator from our vetted bench — directors, writers, editors, event leads — and give you a fixed price before we begin. Because we run a single bench across every customer, you get a category-leading creative at a price that's typically a fraction of an equivalent brand-name agency retainer.</p>
+        </details>
+        <details>
+          <summary>Who actually does the execution?</summary>
+          <p>The best operators in our bench, picked for the moment. Directors who've shipped category-defining films. Writers from category-defining publications. Event organisers behind rooms that matter. We bring them in against your plan — you don't manage them, we do.</p>
+        </details>
+        <details>
+          <summary>What if our team already does some of this?</summary>
+          <p>Better. The OS works with your team. The Function plugs in alongside whatever marketing or founder execution you already have — we don't replace it. We just make sure every action is tied to a named person you're trying to move.</p>
+        </details>
+        <details>
+          <summary>Are there contracts?</summary>
+          <p>Function is a 3-month minimum (long enough to see the loop work), monthly after that. OS is monthly from the start. Packs are scoped one at a time.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta-section" id="book">
+    <div class="grain"></div>
+    <div class="cta-inner">
+      <h2>Map your market <span class="it">live</span> with us.</h2>
+      <p>60-minute working session. We map your 20–500 on the call, draft a 90-day arc, and you decide which tier fits.</p>
+      <div class="cta-actions">
+        <a class="k-btn k-btn--primary k-btn--lg" href="#">Start building trust <span class="arrow">→</span></a>
+        <a class="k-btn k-btn--ghost k-btn--lg" href="#compare">Compare to the alternatives</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="k-footer-mount"></div>
+</main>
+
+<script src="shared.js"></script>
+</body>
+</html>

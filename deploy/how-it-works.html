@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kindling — How it works</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  body { background: var(--parchment-50); color: var(--ink-900); }
+
+  /* =================== HERO =================== */
+  .h-hero { border-bottom: 1px solid var(--color-line); padding: var(--space-9) 0 var(--space-8); }
+  .h-hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+  .h-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-5);
+  }
+  .h-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember-500); box-shadow: 0 0 0 4px var(--ember-100); }
+  .h-h {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(36px, 4.4vw, 64px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--ink-900); margin: 0;
+    max-width: 22ch; text-wrap: balance;
+  }
+  .h-h .it { font-family: var(--font-utility); font-style: normal; font-weight: 700; color: var(--ember-600); letter-spacing: -0.035em; }
+  .h-lede {
+    max-width: 640px; margin: var(--space-5) 0 var(--space-7);
+    font-family: var(--font-body); font-size: 19px; line-height: 1.55;
+    color: var(--ink-400);
+  }
+  .h-lede b { color: var(--ink-900); font-weight: 600; }
+
+  /* Loop — quiet typographic sequence */
+  .loop {
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-line);
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: var(--tr-eyebrow);
+    text-transform: uppercase;
+    color: var(--ink-300);
+  }
+  .loop .node {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    color: var(--ink-900);
+    font-family: var(--font-utility);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .loop .node small {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: var(--tr-eyebrow);
+    text-transform: uppercase;
+    color: var(--ember-700);
+    font-weight: 500;
+  }
+  .loop .sep {
+    color: var(--ink-200);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+  }
+  .loop .when {
+    margin-left: auto;
+    color: var(--ink-300);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: var(--tr-eyebrow);
+    text-transform: uppercase;
+  }
+
+  /* =================== STEP CARDS =================== */
+  .steps { padding: var(--space-9) 0; border-bottom: 1px solid var(--color-line); }
+  .steps-inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: flex; flex-direction: column; gap: var(--space-8); }
+
+  .step {
+    display: grid; grid-template-columns: 1fr 1.05fr;
+    gap: var(--space-8); align-items: center;
+  }
+  .step:nth-child(even) .step-copy  { order: 2; }
+  .step:nth-child(even) .step-card  { order: 1; }
+  @media (max-width: 900px) {
+    .step { grid-template-columns: 1fr; gap: var(--space-5); }
+    .step:nth-child(even) .step-copy { order: 1; }
+    .step:nth-child(even) .step-card { order: 2; }
+  }
+
+  .step-num {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ember-700); margin-bottom: var(--space-3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .step-num .n {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--ember-50); border: 1px solid var(--ember-200);
+    color: var(--ember-700);
+    display: grid; place-items: center;
+    font-family: var(--font-utility); font-weight: 700; font-size: 12px;
+  }
+  .step-copy h2 {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(32px, 4vw, 52px); line-height: 1;
+    letter-spacing: -0.035em; color: var(--ink-900);
+    text-wrap: balance;
+  }
+  .step-copy h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .step-copy p {
+    margin: 0; font-family: var(--font-body); font-size: 18px;
+    line-height: 1.55; color: var(--ink-400);
+    max-width: 50ch;
+  }
+  .step-copy p b { color: var(--ink-900); font-weight: 600; }
+  .step-copy .takeaway {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-line);
+    font-family: var(--font-display); font-style: italic;
+    font-size: 19px; line-height: 1.4;
+    color: var(--ink-900);
+    max-width: 44ch;
+  }
+
+  /* Product cards (mock UI per step) */
+  .pc {
+    position: relative;
+    background: var(--color-bg-elev);
+    border: 1px solid var(--ink-900);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 32px 64px -28px rgba(20,17,13,0.25);
+  }
+  .pc-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--parchment-100);
+  }
+  .pc-bar .dots span {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ink-100); margin-right: 5px;
+  }
+  .pc-bar .dots span:first-child { background: var(--ember-300); }
+  .pc-bar .lbl {
+    margin-left: 4px;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--ink-300); letter-spacing: 0.04em;
+  }
+  .pc-bar .crumbs {
+    margin-left: auto;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--ink-300);
+  }
+
+  /* PC 1 — Market Context */
+  .pc-context { padding: 20px 22px; display: grid; gap: 14px; }
+  .pc-context .ctx-head {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 16px; letter-spacing: -0.015em; color: var(--ink-900);
+  }
+  .ctx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ctx-tile {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    background: var(--color-bg);
+  }
+  .ctx-tile .h {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ember-700); margin-bottom: 6px;
+  }
+  .ctx-tile .b {
+    font-family: var(--font-utility); font-weight: 600; font-size: 14px;
+    letter-spacing: -0.01em; color: var(--ink-900);
+    line-height: 1.25;
+  }
+  .ctx-tile .b .muted { color: var(--ink-300); font-weight: 400; }
+
+  /* PC 2 — Content creation flow */
+  .pc-create { padding: 20px 22px; display: grid; gap: 14px; }
+  .flow {
+    display: grid; grid-template-columns: 1fr 16px 1fr 16px 1fr;
+    gap: 8px; align-items: center;
+  }
+  @media (max-width: 720px) { .flow { grid-template-columns: 1fr; gap: 12px; } .flow .a { display: none; } }
+  .flow-step {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    background: var(--color-bg);
+    text-align: center;
+  }
+  .flow-step.ember { background: var(--ember-500); color: var(--parchment-50); border-color: var(--ember-500); }
+  .flow-step .h {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: 6px;
+  }
+  .flow-step.ember .h { color: rgba(20,17,13,0.7); }
+  .flow-step .b {
+    font-family: var(--font-utility); font-weight: 600;
+    font-size: 13px; letter-spacing: -0.005em;
+    color: var(--ink-900); line-height: 1.25;
+  }
+  .flow-step.ember .b { color: var(--parchment-50); }
+  .flow .a { color: var(--ember-600); text-align: center; font-family: var(--font-display); font-style: italic; font-size: 18px; }
+
+  .content-row {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding-top: 4px;
+  }
+  .content-tag {
+    font-family: var(--font-mono); font-size: 10px;
+    padding: 4px 8px;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    color: var(--ink-400);
+    background: var(--color-bg);
+    letter-spacing: 0.04em;
+  }
+
+  /* PC 3 — This Week dashboard */
+  .pc-track { padding: 20px 22px; display: grid; gap: 14px; }
+  .pc-track .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .pc-track .head .t {
+    font-family: var(--font-utility); font-weight: 700; font-size: 15px; letter-spacing: -0.015em;
+  }
+  .pc-track .head .when {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300);
+  }
+  .track-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  @media (max-width: 560px) { .track-stats { grid-template-columns: repeat(2, 1fr); } }
+  .track-stat {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    background: var(--color-bg);
+  }
+  .track-stat .v {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 22px; letter-spacing: -0.025em; line-height: 1; color: var(--ink-900);
+  }
+  .track-stat .v .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .track-stat .l {
+    margin-top: 4px;
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink-300);
+    line-height: 1.3;
+  }
+  .track-narr {
+    padding: 10px 14px;
+    background: var(--ember-50);
+    border: 1px solid var(--ember-200);
+    border-radius: var(--radius-md);
+    font-size: 13px; line-height: 1.45;
+    color: var(--ink-900);
+  }
+  .track-narr b { font-family: var(--font-utility); font-weight: 600; }
+  .track-narr .lbl {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ember-700); display: block; margin-bottom: 3px;
+  }
+
+  /* PC 4 — Next move */
+  .pc-act { padding: 20px 22px; display: grid; gap: 12px; }
+  .act-block {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    background: var(--color-bg);
+  }
+  .act-block.learning { background: var(--ink-900); color: var(--parchment-50); border-color: var(--ink-900); }
+  .act-block.content  { background: var(--ember-500); color: var(--parchment-50); border-color: var(--ember-500); }
+  .act-block .lbl {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    margin-bottom: 5px;
+    color: var(--ember-700);
+  }
+  .act-block.learning .lbl { color: var(--ember-300); }
+  .act-block.content .lbl  { color: rgba(20,17,13,0.7); }
+  .act-block .body {
+    font-family: var(--font-body); font-size: 13.5px; line-height: 1.5;
+    color: var(--ink-900);
+  }
+  .act-block.learning .body { color: var(--parchment-50); }
+  .act-block.content .body  { color: var(--parchment-50); }
+  .act-block .body b { font-family: var(--font-utility); font-weight: 600; }
+
+  /* =================== WEEKLY RHYTHM =================== */
+  .rhythm { padding: var(--space-9) 0; background: var(--ink-900); color: var(--parchment-50); }
+  .rhythm-inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--space-8); align-items: center; }
+  @media (max-width: 900px) { .rhythm-inner { grid-template-columns: 1fr; } }
+
+  .rhythm-eye {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ember-300); margin-bottom: var(--space-3);
+  }
+  .rhythm-eye .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember-500); }
+  .rhythm h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(32px, 4vw, 52px); line-height: 1;
+    letter-spacing: -0.03em; color: var(--parchment-50); margin: 0 0 var(--space-4);
+    max-width: 18ch; text-wrap: balance;
+  }
+  .rhythm h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-300); }
+  .rhythm p {
+    margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink-100);
+    max-width: 50ch;
+  }
+
+  /* Weekly brief mock */
+  .brief {
+    background: var(--parchment-50); color: var(--ink-900);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: 0 32px 64px -24px rgba(0,0,0,0.5);
+  }
+  .brief-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 12px; border-bottom: 1px solid var(--color-line);
+    margin-bottom: var(--space-4);
+  }
+  .brief-head .t { font-family: var(--font-display); font-style: italic; font-size: 20px; }
+  .brief-head .w { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ink-300); }
+  .brief-rows { display: flex; flex-direction: column; gap: 12px; }
+  .brief-row {
+    display: grid; grid-template-columns: 130px 1fr;
+    gap: 14px; align-items: baseline;
+    padding-bottom: 10px; border-bottom: 1px dashed var(--color-line);
+  }
+  .brief-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .brief-row .h {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ember-700);
+  }
+  .brief-row .b {
+    font-family: var(--font-body); font-size: 13.5px; line-height: 1.5;
+    color: var(--ink-900);
+  }
+  .brief-row .b b { font-family: var(--font-utility); font-weight: 600; }
+
+  /* =================== INPUTS / OUTPUTS =================== */
+  .io { padding: var(--space-9) 0; border-bottom: 1px solid var(--color-line); }
+  .io-inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+  .io-head {
+    max-width: 720px; margin: 0 0 var(--space-7);
+  }
+  .io h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(32px, 4vw, 52px); line-height: 1;
+    letter-spacing: -0.03em; color: var(--ink-900); margin: 0;
+    max-width: 18ch; text-wrap: balance;
+  }
+  .io h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .io-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+  @media (max-width: 800px) { .io-grid { grid-template-columns: 1fr; } }
+  .io-col {
+    padding: var(--space-6);
+    border-right: 1px solid var(--color-line);
+  }
+  .io-col:last-child { border-right: none; background: var(--parchment-100); }
+  @media (max-width: 800px) { .io-col { border-right: none; border-bottom: 1px solid var(--color-line); } .io-col:last-child { border-bottom: none; } }
+  .io-col h3 {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: 28px; line-height: 1.05; letter-spacing: -0.015em;
+    margin: 0 0 var(--space-4); color: var(--ink-900);
+  }
+  .io-col h3 b { font-family: var(--font-utility); font-style: normal; font-weight: 700; color: var(--ember-600); letter-spacing: -0.025em; }
+  .io-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .io-col ul li {
+    display: grid; grid-template-columns: 16px 1fr; gap: 10px;
+    font-size: 15px; line-height: 1.5; color: var(--ink-900);
+  }
+  .io-col ul li::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--ember-500); margin-top: 9px;
+  }
+  .io-key {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-elev);
+    font-family: var(--font-display); font-style: italic;
+    font-size: 22px; line-height: 1.3; color: var(--ink-900);
+    text-wrap: balance;
+  }
+  .io-key b { font-family: var(--font-utility); font-style: normal; font-weight: 700; color: var(--ember-600); }
+
+  /* =================== CLOSE =================== */
+  .close { padding: var(--space-10) 0; text-align: center; }
+  .close-inner { max-width: 1000px; margin: 0 auto; padding: 0 var(--space-6); }
+  .close .lbl {
+    font-family: var(--font-mono); font-size: 11.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-4);
+  }
+  .close h2 {
+    margin: 0 0 var(--space-5);
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(40px, 5.6vw, 80px); line-height: 1.02; letter-spacing: -0.02em;
+    color: var(--ink-900); text-wrap: balance;
+    max-width: 22ch; margin-inline: auto;
+  }
+  .close h2 b { font-family: var(--font-utility); font-style: normal; font-weight: 700; color: var(--ember-600); letter-spacing: -0.035em; }
+  .close .summary {
+    font-family: var(--font-display); font-style: italic;
+    font-size: clamp(20px, 2.4vw, 28px); line-height: 1.35;
+    color: var(--ink-400); max-width: 32ch; margin: 0 auto var(--space-7);
+    text-wrap: balance;
+  }
+  .close .summary b { color: var(--ink-900); font-weight: 600; font-family: var(--font-utility); font-style: normal; letter-spacing: -0.02em; }
+  .close .acts { display: inline-flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+
+<div id="k-header-mount" data-mode="light" data-active="how"></div>
+
+<main>
+
+  <!-- ============== HERO ============== -->
+  <section class="h-hero">
+    <div class="h-hero-inner">
+      <div class="h-eyebrow"><span class="dot"></span>How Kindling works</div>
+      <h1 class="h-h">A weekly system that turns your insight into <span class="it">qualified attention.</span></h1>
+      <p class="h-lede">
+        Kindling is a weekly organic GTM system for B2B companies. <b>We understand your market, execute the next best move to reach your customers, track who engages, and learn what your market is teaching you — every week.</b>
+      </p>
+
+      <div class="loop" aria-label="The loop: Understand, Execute, Track, Act — every week.">
+        <span class="node"><small>01</small>Understand</span>
+        <span class="sep">/</span>
+        <span class="node"><small>02</small>Execute</span>
+        <span class="sep">/</span>
+        <span class="node"><small>03</small>Track</span>
+        <span class="sep">/</span>
+        <span class="node"><small>04</small>Learn</span>
+        <span class="when">every week</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== STEPS ============== -->
+  <section class="steps">
+    <div class="steps-inner">
+
+      <!-- 01 — Understand -->
+      <article class="step">
+        <div class="step-copy">
+          <div class="step-num"><span class="n">01</span>Understand</div>
+          <h2>Understand your <span class="it">market.</span></h2>
+          <p>Kindling starts by learning your company, customers, competitors, ICP, founder voice and target accounts. <b>We build the context layer that makes every piece of content sharper.</b></p>
+          <p class="takeaway">Before we create anything, we learn what your company believes, who you need to reach, and what your market already thinks.</p>
+        </div>
+        <div class="step-card">
+          <div class="pc">
+            <div class="pc-bar"><div class="dots"><span></span><span></span><span></span></div><div class="lbl">market-context · v3</div><div class="crumbs">Last updated 1d ago</div></div>
+            <div class="pc-context">
+              <div class="ctx-head">Market context</div>
+              <div class="ctx-grid">
+                <div class="ctx-tile"><div class="h">ICPs</div><div class="b">CTO · Head of GTM · <span class="muted">CMO</span></div></div>
+                <div class="ctx-tile"><div class="h">Target accounts</div><div class="b">42 named, <span class="muted">8 lighthouses</span></div></div>
+                <div class="ctx-tile"><div class="h">Competitors</div><div class="b">6 tracked weekly</div></div>
+                <div class="ctx-tile"><div class="h">Founder POV</div><div class="b">"Trust &gt; reach"</div></div>
+                <div class="ctx-tile"><div class="h">Customer proof</div><div class="b">11 case studies</div></div>
+                <div class="ctx-tile"><div class="h">Market narratives</div><div class="b">3 active threads</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02 — Execute -->
+      <article class="step">
+        <div class="step-copy">
+          <div class="step-num"><span class="n">02</span>Execute</div>
+          <h2>Execute the <span class="it">next best move</span> to reach your customers.</h2>
+          <p>Our vetted bench ships the work the same week — in your founder's voice, on your map. <b>The actions are concrete, varied, and tied to a named buyer.</b> Not a content calendar. A move worth making.</p>
+          <p class="takeaway">From a 30-second clip to a documentary. From a LinkedIn comment to a curated dinner. Every move chosen for the person it's meant to move.</p>
+        </div>
+        <div class="step-card">
+          <div class="pc">
+            <div class="pc-bar"><div class="dots"><span></span><span></span><span></span></div><div class="lbl">next best action · this week</div><div class="crumbs">Surfaced Monday</div></div>
+            <div class="pc-create">
+              <div class="flow-step ember" style="padding: 14px 16px; text-align: left;">
+                <div class="h">Next best action · ranked #1</div>
+                <div class="b" style="font-size: 14.5px;">Founder POV on the cost of poor documentation — for the 12 CTOs warming up on operational-risk content.</div>
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 10.5px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ink-300); margin-top: 4px;">We execute</div>
+              <div class="content-row">
+                <span class="content-tag">LinkedIn posts</span>
+                <span class="content-tag">Short videos</span>
+                <span class="content-tag">Comment plays</span>
+                <span class="content-tag">DMs &amp; outreach</span>
+                <span class="content-tag">Customer stories</span>
+                <span class="content-tag">Founder POVs</span>
+                <span class="content-tag">Curated events</span>
+                <span class="content-tag">Documentaries</span>
+                <span class="content-tag">Launches</span>
+                <span class="content-tag">PR &amp; narrative</span>
+                <span class="content-tag">Lighthouse plays</span>
+                <span class="content-tag">Sales proof</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03 — Track -->
+      <article class="step">
+        <div class="step-copy">
+          <div class="step-num"><span class="n">03</span>Track</div>
+          <h2>Track the <span class="it">right buyers.</span></h2>
+          <p>Once content goes live, Kindling tracks who is engaging. <b>Not just likes. The people and companies that matter.</b> Kindling shows which buyers, personas and accounts are paying attention — so your team knows whether your market is warming up.</p>
+        </div>
+        <div class="step-card">
+          <div class="pc">
+            <div class="pc-bar"><div class="dots"><span></span><span></span><span></span></div><div class="lbl">this week · engagement</div><div class="crumbs">Mon → Sun</div></div>
+            <div class="pc-track">
+              <div class="head"><div class="t">This week</div><div class="when">Week 17</div></div>
+              <div class="track-stats">
+                <div class="track-stat"><div class="v">44</div><div class="l">Qualified engagers</div></div>
+                <div class="track-stat"><div class="v">31</div><div class="l">Decision-makers</div></div>
+                <div class="track-stat"><div class="v">12</div><div class="l">Target accounts warmed</div></div>
+                <div class="track-stat"><div class="v">5<span class="it">×</span></div><div class="l">Repeat engagers</div></div>
+              </div>
+              <div class="track-narr">
+                <span class="lbl">Top performing narrative</span>
+                <b>Operational risk</b> outperformed generic AI content by 2.3×.
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04 — Learn -->
+      <article class="step">
+        <div class="step-copy">
+          <div class="step-num"><span class="n">04</span>Learn</div>
+          <h2>Learn <span class="it">what your market is teaching you.</span></h2>
+          <p>Each week the system gets sharper. It folds engagement into what it knows about your buyers, your narratives and your competitors — and quietly <b>rewrites the plan for next week</b>, so every loop is more accurate than the last.</p>
+        </div>
+        <div class="step-card">
+          <div class="pc">
+            <div class="pc-bar"><div class="dots"><span></span><span></span><span></span></div><div class="lbl">learnings · week 18</div><div class="crumbs">Folded into strategy</div></div>
+            <div class="pc-act">
+              <div class="act-block learning">
+                <div class="lbl">Narrative learning</div>
+                <div class="body"><b>Operational risk</b> outperforms generic AI content by 2.3×. Doubling down for the next 4 weeks.</div>
+              </div>
+              <div class="act-block content">
+                <div class="lbl">Buyer pattern</div>
+                <div class="body">Heads of GTM engage in the morning. <b>Re-time founder posts to 8:00–9:30am.</b></div>
+              </div>
+              <div class="act-block">
+                <div class="lbl">Killed this week</div>
+                <div class="body">Carousel format — zero qualified engagement. <b>Stopped.</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============== WEEKLY RHYTHM ============== -->
+  <section class="rhythm">
+    <div class="rhythm-inner">
+      <div>
+        <div class="rhythm-eye"><span class="dot"></span>The weekly rhythm</div>
+        <h2>Every week, you get a <span class="it">clear GTM brief.</span></h2>
+        <p>Instead of posting and guessing, your team gets a weekly view of what your market is responding to — and where to act next.</p>
+      </div>
+      <div class="brief">
+        <div class="brief-head"><div class="t">Weekly brief</div><div class="w">Week 17 · live</div></div>
+        <div class="brief-rows">
+          <div class="brief-row"><div class="h">Content shipped</div><div class="b"><b>5 pieces</b> · founder POV, customer story, two short clips, launch post</div></div>
+          <div class="brief-row"><div class="h">Who engaged</div><div class="b"><b>44 qualified</b>, including 31 decision-makers across 12 target accounts</div></div>
+          <div class="brief-row"><div class="h">Buyers warming</div><div class="b"><b>Saskia Lee, Diya Ahuja, Anya Costa</b> — moved cold → aware → interested</div></div>
+          <div class="brief-row"><div class="h">Narrative working</div><div class="b"><b>"Operational risk"</b> · 2.3× engagement vs baseline</div></div>
+          <div class="brief-row"><div class="h">Next move</div><div class="b">Founder POV on documentation cost · 5 follow-ups to ship</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== INPUTS / OUTPUTS ============== -->
+  <section class="io">
+    <div class="io-inner">
+      <div class="io-head">
+        <h2>Simple inputs. <span class="it">High-leverage outputs.</span></h2>
+      </div>
+      <div class="io-grid">
+        <div class="io-col">
+          <h3>You <b>give</b> Kindling</h3>
+          <ul>
+            <li>Your company context</li>
+            <li>Your ICP and target accounts</li>
+            <li>Founder interviews or voice notes</li>
+            <li>Light approvals</li>
+          </ul>
+        </div>
+        <div class="io-col">
+          <h3>Kindling <b>gives</b> you</h3>
+          <ul>
+            <li>Weekly founder-led content</li>
+            <li>Qualified buyer engagement</li>
+            <li>Market learnings</li>
+            <li>Recommended next actions</li>
+            <li>Sales-ready proof assets</li>
+          </ul>
+        </div>
+      </div>
+      <div class="io-key">
+        Your founder stays the source of insight — <b>but no longer has to be the bottleneck.</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CLOSE ============== -->
+  <section class="close">
+    <div class="close-inner">
+      <div class="lbl">A compounding system for organic GTM</div>
+      <h2>Kindling gets <b>sharper</b> every week.</h2>
+      <p class="summary">Understand your market. Create credible content. <b>Track buyer attention.</b> Act on the signals.</p>
+      <div class="acts">
+        <a class="k-btn k-btn--primary k-btn--lg" href="#">See Kindling in action <span class="arrow">→</span></a>
+        <a class="k-btn k-btn--ghost k-btn--lg" href="manifesto.html" style="border-color: var(--ink-900); color: var(--ink-900);">Our view of the future</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="k-footer-mount"></div>
+</main>
+
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kindling — Product</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  /* ============================================================
+     PRODUCT PAGE
+     ============================================================ */
+
+  /* ---------- Sub-hero ---------- */
+  .product-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--parchment-50);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .product-hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--space-9) var(--space-6) var(--space-7);
+    text-align: center;
+  }
+  .ph-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-5);
+  }
+  .ph-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember-500); box-shadow: 0 0 0 4px var(--ember-100);}
+  .ph-h {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(44px, 5.6vw, 84px); line-height: 1; letter-spacing: -0.035em;
+    color: var(--ink-900); margin: 0 auto; max-width: 20ch; text-wrap: balance;
+  }
+  .ph-h .it { font-family: var(--font-display); font-style: italic; font-weight: 400; letter-spacing: -0.02em; color: var(--ember-600); }
+  .ph-lede {
+    max-width: 660px; margin: var(--space-5) auto var(--space-7);
+    font-family: var(--font-body); font-size: 19px; line-height: 1.55;
+    color: var(--ink-300); text-wrap: pretty;
+  }
+
+  /* anchor nav */
+  .anchor-nav {
+    position: sticky; top: 72px; z-index: 30;
+    background: rgba(251, 247, 242, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .anchor-nav-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+    display: flex; align-items: center; gap: var(--space-2);
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .anchor-nav-inner::-webkit-scrollbar { display: none; }
+  .anchor-nav-inner a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 14px;
+    font-family: var(--font-utility); font-weight: 500; font-size: 14px;
+    color: var(--ink-300); text-decoration: none;
+    white-space: nowrap; border-bottom: 2px solid transparent;
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  }
+  .anchor-nav-inner a:hover { color: var(--ink-900); }
+  .anchor-nav-inner a.active { color: var(--ink-900); border-bottom-color: var(--ember-500); }
+  .anchor-nav-inner a .num { font-family: var(--font-mono); font-size: 11px; color: var(--ink-200); letter-spacing: var(--tr-eyebrow); }
+
+  /* ---------- Section divider (Intelligence / Execution) ---------- */
+  .section-divider {
+    position: relative;
+    padding: var(--space-10) 0 var(--space-7);
+    background: var(--color-bg);
+  }
+  .section-divider.dark { background: var(--ink-900); color: var(--parchment-50); }
+  .section-divider.ember { background: var(--ember-500); color: var(--parchment-50); position: relative; overflow: hidden; }
+  .section-divider.ember .grain {
+    position: absolute; inset: 0;
+    background-image: url('assets/texture/paper-grain.png');
+    background-size: 480px; opacity: 0.5; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .section-divider-inner {
+    position: relative; z-index: 2;
+    max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-7); align-items: end;
+  }
+  @media (max-width: 900px) { .section-divider-inner { grid-template-columns: 1fr; } }
+  .section-divider .label {
+    font-family: var(--font-mono); font-size: 13px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-4);
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .section-divider.dark .label { color: var(--ember-300); }
+  .section-divider.ember .label { color: rgba(20, 17, 13, 0.7); }
+  .section-divider .label .num {
+    width: 36px; height: 36px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 600;
+  }
+  .section-divider h2 {
+    font-family: var(--font-utility);
+    font-weight: 700;
+    font-size: clamp(56px, 7vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin: 0;
+    color: var(--ink-900);
+    text-wrap: balance;
+  }
+  .section-divider.dark h2 { color: var(--parchment-50); }
+  .section-divider.ember h2 { color: var(--parchment-50); }
+  .section-divider h2 .it {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    letter-spacing: -0.025em; color: var(--ember-600);
+  }
+  .section-divider.dark h2 .it { color: var(--ember-300); }
+  .section-divider.ember h2 .it { color: var(--ink-900); }
+  .section-divider p.lede {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.55;
+    color: var(--ink-300); margin: 0; max-width: 50ch;
+  }
+  .section-divider.dark p.lede { color: var(--ink-100); }
+  .section-divider.ember p.lede { color: rgba(20, 17, 13, 0.8); }
+
+  /* ---------- Module sections ---------- */
+  .module {
+    position: relative;
+    padding: var(--space-9) 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .module.alt { background: var(--parchment-100); }
+  .module-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+    display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-9); align-items: center;
+  }
+  .module.flip .module-inner { grid-template-columns: 1.15fr 0.85fr; }
+  .module.flip .module-copy { order: 2; }
+  .module.flip .module-visual { order: 1; }
+  @media (max-width: 980px) {
+    .module-inner, .module.flip .module-inner { grid-template-columns: 1fr; }
+    .module.flip .module-copy { order: 1; }
+    .module.flip .module-visual { order: 2; }
+  }
+
+  .module-copy { max-width: 480px; }
+  .module-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); margin-bottom: var(--space-4);
+  }
+  .module-eyebrow .num {
+    width: 28px; height: 28px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 11px; font-weight: 500; color: var(--ink-900);
+  }
+  .module h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(32px, 3.8vw, 48px); line-height: 1.02;
+    letter-spacing: -0.03em; color: var(--ink-900);
+    margin: 0 0 var(--space-4); text-wrap: balance;
+  }
+  .module h2 .it {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    letter-spacing: -0.015em; color: var(--ember-600);
+  }
+  .module p.lede {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.55;
+    color: var(--ink-300); margin: 0 0 var(--space-5);
+  }
+  .module-bullets {
+    list-style: none; margin: 0 0 var(--space-6); padding: 0;
+    display: flex; flex-direction: column; gap: var(--space-3);
+  }
+  .module-bullets li {
+    display: flex; gap: var(--space-3);
+    font-size: 15px; line-height: 1.5; color: var(--ink-900);
+  }
+  .module-bullets li svg { flex: none; margin-top: 4px; color: var(--ember-600); width: 16px; height: 16px; }
+  .module-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-utility); font-weight: 600; font-size: 15px;
+    color: var(--ink-900); text-decoration: none;
+    border-bottom: 1px solid var(--ink-900); padding-bottom: 2px;
+  }
+  .module-link:hover { color: var(--ember-700); border-bottom-color: var(--ember-700); }
+
+  /* ---------- Mock UI base ---------- */
+  .mock {
+    position: relative;
+    background: var(--color-bg-elev);
+    border: 1px solid var(--ink-900);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 32px 64px -24px rgba(63, 28, 18, 0.25),
+                0 8px 16px rgba(63, 28, 18, 0.08);
+    font-family: var(--font-body); color: var(--ink-900);
+  }
+  .mock-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--parchment-100);
+  }
+  .mock-bar .dot-row { display: flex; gap: 6px; }
+  .mock-bar .dot-row span { width: 9px; height: 9px; border-radius: 50%; background: var(--ink-100); }
+  .mock-bar .dot-row span:first-child { background: var(--ember-300); }
+  .mock-bar .label { margin-left: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-300); letter-spacing: 0.04em; }
+  .mock-bar .crumbs { margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--ink-300); }
+
+  /* (Mock styles for each module — same as before) */
+  .mm-grid { padding: 18px 20px; display: grid; grid-template-columns: 220px 1fr; gap: 20px; }
+  .mm-side { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+  .mm-side h6 { margin: 0 0 6px; font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ink-300); font-weight: 500; }
+  .mm-side .item { padding: 7px 10px; border-radius: 6px; display: flex; align-items: center; gap: 8px; color: var(--ink-400); cursor: default; }
+  .mm-side .item.active { background: var(--ember-50); color: var(--ink-900); font-weight: 500; }
+  .mm-side .item .count { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--ink-300); }
+  .mm-side .item.active .count { color: var(--ember-700); }
+  .mm-side .item .ic { width: 14px; height: 14px; color: var(--ink-300); }
+
+  .mm-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .mm-col h5 { margin: 0 0 8px; font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; font-weight: 500; color: var(--ink-300); display: flex; align-items: center; gap: 6px; }
+  .mm-col h5::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-100); }
+  .mm-col.cold h5::before { background: var(--ink-200); }
+  .mm-col.aware h5::before { background: var(--marigold-500); }
+  .mm-col.interest h5::before { background: var(--ember-500); }
+  .mm-col.advocate h5::before { background: var(--sage-500); }
+  .mm-card { background: var(--color-bg); border: 1px solid var(--color-line); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .mm-card .av { width: 22px; height: 22px; border-radius: 50%; background: var(--ember-100); color: var(--ember-700); font-size: 10px; font-weight: 700; display: grid; place-items: center; flex: none; font-family: var(--font-utility); }
+  .mm-card .av[data-tone="plum"]{ background: var(--plum-200); color: var(--plum-500); }
+  .mm-card .av[data-tone="sage"]{ background: var(--sage-200); color: var(--sage-500); }
+  .mm-card .av[data-tone="ink"] { background: var(--ink-100); color: var(--ink-500); }
+  .mm-card .av[data-tone="marigold"]{ background: var(--marigold-200); color: var(--ink-900); }
+  .mm-card .info { min-width: 0; flex: 1; }
+  .mm-card .info b { font-family: var(--font-utility); font-weight: 600; font-size: 12.5px; display: block; line-height: 1.2; }
+  .mm-card .info span { font-size: 10.5px; color: var(--ink-300); }
+  .mm-card .tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; color: var(--ink-300); border: 1px solid var(--color-line); padding: 2px 5px; border-radius: 3px; }
+
+  /* Strategy */
+  .strat { padding: 22px; display: grid; gap: 16px; }
+  .strat-pos { background: var(--ember-50); border: 1px solid var(--ember-100); border-radius: 10px; padding: 14px 16px; }
+  .strat-pos h6 { margin: 0 0 6px; font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ember-700); font-weight: 500; }
+  .strat-pos p { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.3; color: var(--ink-900); }
+  .strat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .belief { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-bg-elev); font-size: 13px; line-height: 1.4; }
+  .belief .gap { flex: none; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--parchment-50); background: var(--ink-900); padding: 2px 6px; border-radius: 3px; }
+  .belief .gap.delta { background: var(--ember-600); }
+  .belief b { font-family: var(--font-utility); font-weight: 600; display: block; margin-bottom: 2px; font-size: 13px; }
+  .belief span { color: var(--ink-300); font-size: 12px; }
+  .arc { border: 1px solid var(--color-line); border-radius: 10px; padding: 14px; background: var(--color-bg-elev); }
+  .arc h6 { margin: 0 0 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ink-300); font-weight: 500; }
+  .arc-bar { position: relative; height: 38px; background: var(--parchment-100); border-radius: 6px; display: flex; overflow: hidden; }
+  .arc-bar > div { flex: 1; border-right: 1px solid var(--parchment-300); padding: 6px 10px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-300); letter-spacing: 0.04em; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+  .arc-bar > div:last-child { border-right: none; }
+  .arc-bar > div.now { background: var(--ember-100); color: var(--ink-900); }
+  .arc-bar > div.now strong { font-family: var(--font-utility); font-weight: 600; font-size: 11px; }
+
+  /* Weekly */
+  .week { padding: 22px; display: grid; gap: 14px; }
+  .week-head { display: flex; align-items: center; justify-content: space-between; }
+  .week-head h6 { margin: 0; font-family: var(--font-utility); font-weight: 600; font-size: 14px; }
+  .week-head .nav { display: inline-flex; gap: 4px; }
+  .week-head .nav button { width: 24px; height: 24px; border: 1px solid var(--color-line); background: var(--color-bg-elev); border-radius: 6px; display: grid; place-items: center; cursor: pointer; color: var(--ink-300); }
+  .week-head .pill { font-family: var(--font-mono); font-size: 10.5px; background: var(--ink-900); color: var(--parchment-50); padding: 4px 8px; border-radius: 999px; letter-spacing: 0.04em; }
+  .week-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .week-card { border: 1px solid var(--color-line); background: var(--color-bg-elev); border-radius: 8px; padding: 12px 14px; }
+  .week-card.highlight { background: var(--ember-500); color: var(--parchment-50); border-color: var(--ember-500); }
+  .week-card .h { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ink-300); margin-bottom: 6px; font-weight: 500; }
+  .week-card.highlight .h { color: rgba(251,247,242,0.8); }
+  .week-card ul { margin: 0; padding: 0; list-style: none; font-size: 13px; line-height: 1.5; }
+  .week-card ul li { padding: 3px 0; display: flex; gap: 8px; align-items: flex-start; }
+  .week-card ul li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--ink-300); margin-top: 9px; flex: none; }
+  .week-card.highlight ul li::before { background: var(--parchment-50); }
+  .week-card .ask { font-family: var(--font-display); font-style: italic; font-size: 18px; margin: 4px 0 0; line-height: 1.3; }
+
+  /* Signal */
+  .signal { padding: 22px; }
+  .signal-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
+  .signal-head .big { font-family: var(--font-utility); font-weight: 700; font-size: 38px; letter-spacing: -0.03em; line-height: 1; }
+  .signal-head .big sub { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--ember-600); margin-left: 4px; vertical-align: baseline; }
+  .signal-head .meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-300); letter-spacing: 0.04em; }
+  .signal-chart { height: 130px; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-bg-elev); position: relative; padding: 8px 12px; overflow: hidden; }
+  .signal-chart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .signal-legend { display: flex; gap: 12px; margin-top: 10px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-300); }
+  .signal-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .signal-legend span::before { content: ""; width: 10px; height: 2px; border-radius: 1px; background: currentColor; }
+  .signal-legend .cold::before { background: var(--ink-300); }
+  .signal-legend .aware::before { background: var(--marigold-500); }
+  .signal-legend .interest::before { background: var(--ember-500); }
+  .signal-legend .advocate::before { background: var(--sage-500); }
+  .signal-moves { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .signal-move { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-bg-elev); font-size: 12.5px; }
+  .signal-move .av { width: 24px; height: 24px; border-radius: 50%; background: var(--ember-100); color: var(--ember-700); font-family: var(--font-utility); font-weight: 700; font-size: 10px; display: grid; place-items: center; }
+  .signal-move .av[data-tone="plum"]{ background: var(--plum-200); color: var(--plum-500); }
+  .signal-move .av[data-tone="sage"]{ background: var(--sage-200); color: var(--sage-500); }
+  .signal-move .info b { font-family: var(--font-utility); font-weight: 600; }
+  .signal-move .info span { color: var(--ink-300); font-size: 11px; margin-left: 6px; }
+  .signal-move .delta { margin-left: auto; font-family: var(--font-mono); font-size: 11px; background: var(--sage-200); color: var(--sage-500); padding: 3px 7px; border-radius: 999px; letter-spacing: 0.04em; }
+  .signal-move .delta.warm { background: var(--marigold-200); color: var(--ink-900); }
+
+  /* ---------- EXECUTION GRID ---------- */
+  .execution-grid {
+    padding: var(--space-9) 0;
+    background: var(--color-bg);
+  }
+  .execution-grid-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-4);
+  }
+  .ex-card {
+    position: relative;
+    background: var(--color-bg-elev);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex; flex-direction: column; gap: var(--space-3);
+    transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+    text-decoration: none; color: inherit;
+    min-height: 220px;
+  }
+  .ex-card:hover { transform: translateY(-3px); border-color: var(--ink-900); box-shadow: var(--shadow-md); }
+
+  /* Sizes — 6 col grid */
+  .ex-card.size-3 { grid-column: span 3; }
+  .ex-card.size-2 { grid-column: span 2; }
+  .ex-card.size-4 { grid-column: span 4; }
+
+  @media (max-width: 980px) {
+    .execution-grid-inner { grid-template-columns: repeat(2, 1fr); }
+    .ex-card.size-3, .ex-card.size-2, .ex-card.size-4 { grid-column: span 2; }
+  }
+  @media (max-width: 580px) {
+    .execution-grid-inner { grid-template-columns: 1fr; }
+    .ex-card.size-3, .ex-card.size-2, .ex-card.size-4 { grid-column: span 1; }
+  }
+
+  .ex-card.feature {
+    background: var(--ember-500);
+    color: var(--parchment-50);
+    border-color: var(--ember-500);
+    min-height: 320px;
+  }
+  .ex-card.feature .ex-eyebrow { color: rgba(20, 17, 13, 0.7); }
+  .ex-card.feature .ex-title { color: var(--parchment-50); }
+  .ex-card.feature .ex-summary { color: rgba(20, 17, 13, 0.85); }
+
+  .ex-card.dark {
+    background: var(--ink-900);
+    color: var(--parchment-50);
+    border-color: var(--ink-900);
+    min-height: 320px;
+  }
+  .ex-card.dark .ex-eyebrow { color: var(--ember-300); }
+  .ex-card.dark .ex-title { color: var(--parchment-50); }
+  .ex-card.dark .ex-summary { color: var(--ink-100); }
+
+  .ex-eyebrow {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .ex-eyebrow .ic {
+    width: 28px; height: 28px;
+    border-radius: var(--radius-md);
+    background: var(--ember-50);
+    border: 1px solid var(--ember-100);
+    color: var(--ember-700);
+    display: grid; place-items: center;
+  }
+  .ex-card.feature .ex-eyebrow .ic { background: rgba(20, 17, 13, 0.12); border-color: rgba(20, 17, 13, 0.18); color: var(--ink-900); }
+  .ex-card.dark .ex-eyebrow .ic { background: rgba(217, 119, 87, 0.18); border-color: rgba(217, 119, 87, 0.3); color: var(--ember-300); }
+  .ex-eyebrow .ic svg { width: 16px; height: 16px; }
+
+  .ex-title {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 22px; letter-spacing: -0.02em; line-height: 1.05;
+    color: var(--ink-900); margin: 0;
+  }
+  .ex-title .it {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    color: var(--ember-600);
+  }
+  .ex-card.feature .ex-title .it { color: var(--ink-900); }
+  .ex-card.dark .ex-title .it { color: var(--ember-300); }
+
+  .ex-summary {
+    font-size: 14.5px; line-height: 1.5; color: var(--ink-300);
+    margin: 0;
+  }
+  .ex-card .ex-tags {
+    margin-top: auto;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .ex-tag {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 0.04em; color: var(--ink-300);
+    padding: 4px 8px; border-radius: 4px;
+    background: var(--parchment-100);
+  }
+  .ex-card.feature .ex-tag { background: rgba(20,17,13,0.14); color: var(--ink-900); }
+  .ex-card.dark .ex-tag { background: rgba(251,247,242,0.1); color: var(--parchment-50); }
+
+  /* ---------- NBA mock ---------- */
+  .nba { padding: 18px 20px; display: grid; gap: 14px; }
+  .nba-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .nba-head h6 {
+    margin: 0;
+    font-family: var(--font-utility); font-weight: 600; font-size: 14px;
+  }
+  .nba-head .meta {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-300); letter-spacing: 0.04em;
+  }
+  .nba-list {
+    list-style: none; margin: 0; padding: 0;
+    border: 1px solid var(--color-line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--color-bg-elev);
+  }
+  .nba-item {
+    display: grid;
+    grid-template-columns: 28px 70px 1fr auto;
+    gap: 12px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--color-line);
+    align-items: center;
+    font-size: 13px;
+    line-height: 1.4;
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+  .nba-item:first-child { border-top: none; }
+  .nba-item:hover { background: var(--parchment-50); }
+  .nba-item .rank {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ember-700); font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .nba-item .ftype {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--parchment-50); background: var(--ink-900);
+    padding: 4px 6px; border-radius: 3px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .nba-item .ftype[data-tone="ember"] { background: var(--ember-500); }
+  .nba-item .ftype[data-tone="plum"]  { background: var(--plum-500); }
+  .nba-item .ftype[data-tone="sage"]  { background: var(--sage-500); }
+  .nba-item .ftype[data-tone="marigold"] { background: var(--marigold-500); color: var(--ink-900); }
+  .nba-item .body {
+    display: flex; flex-direction: column; gap: 3px; min-width: 0;
+  }
+  .nba-item .body .t {
+    font-family: var(--font-utility); font-weight: 600;
+    font-size: 13.5px; letter-spacing: -0.005em;
+    color: var(--ink-900);
+  }
+  .nba-item .body .for {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--ink-300); letter-spacing: 0.04em;
+    display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+  }
+  .nba-item .body .for .who {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: var(--ink-900);
+  }
+  .nba-item .body .for .who .av {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--ember-100); color: var(--ember-700);
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 8px; display: grid; place-items: center;
+  }
+  .nba-item .body .for .who .av[data-tone="plum"] { background: var(--plum-200); color: var(--plum-500); }
+  .nba-item .body .for .who .av[data-tone="sage"] { background: var(--sage-200); color: var(--sage-500); }
+  .nba-item .body .for .who .av[data-tone="ink"]  { background: var(--ink-100); color: var(--ink-500); }
+  .nba-item .body .for .gap {
+    color: var(--ember-700);
+    font-family: var(--font-display); font-style: italic; font-size: 12px;
+    letter-spacing: -0.005em;
+  }
+  .nba-item .action {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-300);
+    padding: 4px 8px; border: 1px solid var(--color-line);
+    border-radius: 6px;
+    background: var(--color-bg);
+    letter-spacing: 0.04em;
+  }
+  .nba-item.high { background: var(--ember-50); }
+  .nba-item.high:hover { background: var(--ember-100); }
+
+  /* Full menu chips */
+  .nba-menu {
+    margin-top: 4px;
+    padding: 12px 14px;
+    background: var(--parchment-100);
+    border: 1px solid var(--color-line);
+    border-radius: 10px;
+  }
+  .nba-menu-head {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300); font-weight: 500;
+    margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .nba-menu-head span { color: var(--ink-200); font-size: 9.5px; }
+  .nba-menu-chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .nba-menu-chips span {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.04em;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--color-bg-elev);
+    border: 1px solid var(--color-line);
+    color: var(--ink-400);
+  }
+  .nba-menu-chips span.hot { background: var(--ember-100); border-color: var(--ember-200); color: var(--ember-700); }
+
+  /* ---------- Offerings teaser ---------- */
+  .offerings-teaser {
+    padding: var(--space-10) 0;
+    background: var(--parchment-100);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .ot-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+    display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--space-8); align-items: center;
+  }
+  @media (max-width: 900px) { .ot-inner { grid-template-columns: 1fr; } }
+  .ot-inner h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;
+    margin: 0 0 var(--space-4); text-wrap: balance; max-width: 16ch;
+  }
+  .ot-inner h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ember-600); }
+  .ot-inner p { font-size: 17px; line-height: 1.55; color: var(--ink-300); margin: 0 0 var(--space-5); max-width: 44ch; }
+
+  .ot-cards { display: flex; flex-direction: column; gap: var(--space-3); }
+  .ot-card {
+    display: flex; gap: var(--space-4); align-items: center;
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-bg-elev);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    text-decoration: none; color: inherit;
+    transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .ot-card:hover { border-color: var(--ink-900); transform: translateX(2px); }
+  .ot-card .tag {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--parchment-50); background: var(--ink-900);
+    padding: 4px 8px; border-radius: 4px; flex: none;
+  }
+  .ot-card.os .tag { background: var(--plum-500); }
+  .ot-card.fn .tag { background: var(--ember-500); }
+  .ot-card.packs .tag { background: var(--sage-500); }
+  .ot-card .body { flex: 1; }
+  .ot-card .body b {
+    font-family: var(--font-utility); font-weight: 600;
+    font-size: 18px; letter-spacing: -0.01em;
+    display: block; margin-bottom: 2px;
+  }
+  .ot-card .body span { font-size: 14px; line-height: 1.4; color: var(--ink-300); }
+  .ot-card .price {
+    font-family: var(--font-mono); font-size: 13px;
+    color: var(--ink-900); flex: none;
+    text-align: right;
+  }
+  .ot-card .price small { display: block; font-size: 10px; color: var(--ink-300); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ---------- CTA ---------- */
+  .cta-section {
+    position: relative;
+    background: var(--ember-500);
+    color: var(--parchment-50);
+    padding: var(--space-10) 0;
+    overflow: hidden;
+  }
+  .cta-section .grain {
+    position: absolute; inset: 0;
+    background-image: url('assets/texture/paper-grain.png');
+    background-size: 500px; opacity: 0.5; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .cta-inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); text-align: center; position: relative; z-index: 2;}
+  .cta-inner h2 {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: clamp(48px, 6vw, 84px); line-height: 1; letter-spacing: -0.035em;
+    margin: 0 0 var(--space-5); color: var(--parchment-50);
+    text-wrap: balance; max-width: 18ch; margin-inline: auto;
+  }
+  .cta-inner h2 .it { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--ink-900); }
+  .cta-inner p { max-width: 540px; margin: 0 auto var(--space-7); font-size: 18px; line-height: 1.55; color: rgba(20, 17, 13, 0.8); }
+  .cta-actions { display: inline-flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+  .cta-actions .k-btn--primary { background: var(--ink-900); color: var(--parchment-50); }
+  .cta-actions .k-btn--ghost { border-color: var(--ink-900); color: var(--ink-900); }
+  .cta-actions .k-btn--ghost:hover { background: rgba(20,17,13,0.1); }
+</style>
+</head>
+<body>
+
+<div id="k-header-mount" data-mode="light" data-active="product"></div>
+
+<main>
+  <section class="product-hero">
+    <div class="product-hero-inner">
+      <div class="ph-eyebrow"><span class="dot"></span>The Organic GTM OS</div>
+      <h1 class="ph-h">The system that <span class="it">gets you known.</span></h1>
+      <p class="ph-lede">
+        Kindling has two product components. <b>Intelligence</b> — the brain — understands you, your market, your competitors, and the people who can change your business. <b>Execution</b> — the work — brings in the best operators to make the right moves happen, every week.
+      </p>
+      <div class="cta-actions" style="justify-content:center;">
+        <a class="k-btn k-btn--ember k-btn--lg" href="#book">Start building trust <span class="arrow">→</span></a>
+        <a class="k-btn k-btn--ghost k-btn--lg" href="#intelligence" style="border-color: var(--ink-900); color: var(--ink-900);">Tour the product</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anchor nav -->
+  <nav class="anchor-nav" aria-label="Sections">
+    <div class="anchor-nav-inner">
+      <a href="#intelligence" class="active"><span class="num">01</span>Intelligence</a>
+      <a href="#market-map"><span class="num">·</span>Market Map</a>
+      <a href="#strategy"><span class="num">·</span>Strategy</a>
+      <a href="#weekly-loop"><span class="num">·</span>Weekly Loop</a>
+      <a href="#signal"><span class="num">·</span>Signal &amp; Learning</a>
+      <a href="#next-best-actions"><span class="num">·</span>Next Best Actions</a>
+      <a href="#execution"><span class="num">02</span>Execution</a>
+      <a href="#offerings"><span class="num">→</span>Offerings</a>
+    </div>
+  </nav>
+
+  <!-- ===================== INTELLIGENCE ===================== -->
+  <section class="section-divider" id="intelligence">
+    <div class="section-divider-inner">
+      <div>
+        <div class="label"><span class="num">01</span>Intelligence · the brain</div>
+        <h2>Know <span class="it">who</span> can change your business, and what they need to <span class="it">believe.</span></h2>
+      </div>
+      <div>
+        <p class="lede">
+          Senior strategists, not AI summaries. We understand you, your market and your competitors deeply. We map the 20–500 people who actually move the needle. We define what those people need to believe for you to win — and turn that into a weekly action plan, backed by <b>proprietary trust signals</b> AI-only stacks can't see.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module — Market Map -->
+  <section class="module" id="market-map">
+    <div class="module-inner">
+      <div class="module-copy">
+        <div class="module-eyebrow"><span class="num">01</span>Market Map</div>
+        <h2>The 20–500 people who actually <span class="it">move</span> you.</h2>
+        <p class="lede">
+          Buyers, investors, hires, partners, lighthouses, category voices and competitors. Named, mapped, and tracked from cold to advocate — so you stop guessing who matters.
+        </p>
+        <ul class="module-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>People, accounts, competitors and lighthouses in one place</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Four-stage temperature: cold · aware · interested · advocate</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Imports from Salesforce, HubSpot, Linear, your CRM of choice</li>
+        </ul>
+        <a class="module-link" href="#book">Map your accounts with us <span>→</span></a>
+      </div>
+      <div class="module-visual">
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="dot-row"><span></span><span></span><span></span></div>
+            <div class="label">market-map · accounts</div>
+            <div class="crumbs">Northwind / Q2 expansion</div>
+          </div>
+          <div class="mm-grid">
+            <aside class="mm-side">
+              <h6>Segments</h6>
+              <div class="item active">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="17" cy="7" r="3"/></svg>
+                Buyers <span class="count">42</span>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6Z"/></svg>
+                Lighthouses <span class="count">11</span>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M2 12h20"/><path d="M12 2a14 14 0 0 1 0 20"/></svg>
+                Investors <span class="count">8</span>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg>
+                Competitors <span class="count">6</span>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></svg>
+                Hires <span class="count">14</span>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                Partners <span class="count">9</span>
+              </div>
+            </aside>
+            <div class="mm-board">
+              <div class="mm-col cold">
+                <h5>Cold · 18</h5>
+                <div class="mm-card"><div class="av" data-tone="ink">SL</div><div class="info"><b>Saskia Lee</b><span>CTO · Northwind</span></div></div>
+                <div class="mm-card"><div class="av" data-tone="ink">JM</div><div class="info"><b>Jordan Mahir</b><span>VP Eng · Atlas</span></div></div>
+                <div class="mm-card"><div class="av" data-tone="ink">RC</div><div class="info"><b>Ren Chen</b><span>Head of GTM · Forge</span></div></div>
+              </div>
+              <div class="mm-col aware">
+                <h5>Aware · 14</h5>
+                <div class="mm-card"><div class="av" data-tone="marigold">DA</div><div class="info"><b>Diya Ahuja</b><span>CMO · Lumen</span></div><span class="tag">↑ 2w</span></div>
+                <div class="mm-card"><div class="av" data-tone="marigold">MK</div><div class="info"><b>Moe Kandel</b><span>Founder · Beam</span></div></div>
+                <div class="mm-card"><div class="av" data-tone="marigold">TS</div><div class="info"><b>Tomi Sato</b><span>PM · Orbit</span></div></div>
+              </div>
+              <div class="mm-col interest">
+                <h5>Interested · 8</h5>
+                <div class="mm-card"><div class="av">AC</div><div class="info"><b>Anya Costa</b><span>Partner · Vega</span></div><span class="tag">↑ 1w</span></div>
+                <div class="mm-card"><div class="av">BO</div><div class="info"><b>Ben Okafor</b><span>VP Sales · Helia</span></div></div>
+              </div>
+              <div class="mm-col advocate">
+                <h5>Advocate · 3</h5>
+                <div class="mm-card"><div class="av" data-tone="sage">PR</div><div class="info"><b>Priya Rao</b><span>Founder · Kiln</span></div><span class="tag">★</span></div>
+                <div class="mm-card"><div class="av" data-tone="sage">DH</div><div class="info"><b>Dr. Hema</b><span>Advisor · Selah</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module — Strategy -->
+  <section class="module alt flip" id="strategy">
+    <div class="module-inner">
+      <div class="module-copy">
+        <div class="module-eyebrow"><span class="num">02</span>Strategy &amp; belief gaps</div>
+        <h2>Define what they <span class="it">need to believe.</span></h2>
+        <p class="lede">
+          Positioning, ICP, the belief gaps between where your buyers are today and where they need to be — translated into a 90-day arc that makes every action have a purpose.
+        </p>
+        <ul class="module-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>One-line positioning, drafted with you, sharpened by your team</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Belief gaps mapped: today's belief → target belief → the move</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>A 90-day arc that says what gets shipped, when, and why</li>
+        </ul>
+        <a class="module-link" href="#book">Run a strategy session <span>→</span></a>
+      </div>
+      <div class="module-visual">
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="dot-row"><span></span><span></span><span></span></div>
+            <div class="label">strategy · q2-arc</div>
+            <div class="crumbs">Last edited 2 days ago</div>
+          </div>
+          <div class="strat">
+            <div class="strat-pos">
+              <h6>Positioning</h6>
+              <p>“We help technical founders sound like themselves to the people who can change their company.”</p>
+            </div>
+            <div class="strat-grid">
+              <div class="belief">
+                <span class="gap">Today</span>
+                <div><b>“Just another agency.”</b><span>Buyers see Kindling as one of many GTM shops.</span></div>
+              </div>
+              <div class="belief">
+                <span class="gap delta">Target</span>
+                <div><b>“A system, not a service.”</b><span>Operators see organic GTM run with rigor.</span></div>
+              </div>
+              <div class="belief">
+                <span class="gap">Today</span>
+                <div><b>“Content = volume.”</b><span>Marketers chase reach, not movement.</span></div>
+              </div>
+              <div class="belief">
+                <span class="gap delta">Target</span>
+                <div><b>“Content = movement.”</b><span>Measure people, not impressions.</span></div>
+              </div>
+            </div>
+            <div class="arc">
+              <h6>90-day arc</h6>
+              <div class="arc-bar">
+                <div><span>Weeks 1–3</span>Map &amp; baseline</div>
+                <div class="now"><strong>Weeks 4–7</strong><span>Belief-gap launches</span></div>
+                <div><span>Weeks 8–10</span>Customer stories</div>
+                <div><span>Weeks 11–13</span>Lighthouse moments</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module — Weekly Loop -->
+  <section class="module" id="weekly-loop">
+    <div class="module-inner">
+      <div class="module-copy">
+        <div class="module-eyebrow"><span class="num">03</span>Weekly Loop</div>
+        <h2>One page. <span class="it">Every week.</span></h2>
+        <p class="lede">
+          What we're doing, who moved, what we learned, and the one thing we need from you. The whole engagement, surfaced — so nothing happens in the dark.
+        </p>
+        <ul class="module-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>This week's shipped work — links, deltas, named people moved</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>What we tested, what worked, what we're killing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>The one thing we need from you — not five, not ten</li>
+        </ul>
+        <a class="module-link" href="#book">See a sample loop <span>→</span></a>
+      </div>
+      <div class="module-visual">
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="dot-row"><span></span><span></span><span></span></div>
+            <div class="label">weekly-loop · week 17</div>
+            <div class="crumbs">Apr 22 – Apr 28</div>
+          </div>
+          <div class="week">
+            <div class="week-head">
+              <h6>Week 17 · "Belief: content = movement"</h6>
+              <div class="nav">
+                <button>‹</button>
+                <button>›</button>
+                <span class="pill">Live</span>
+              </div>
+            </div>
+            <div class="week-grid">
+              <div class="week-card">
+                <span class="h">What we did</span>
+                <ul>
+                  <li>Shipped <b>"Random acts of marketing"</b> long-form essay</li>
+                  <li>Filmed founder Q&amp;A — 4 clips edited</li>
+                  <li>3 partner intros to Northwind &amp; Lumen</li>
+                </ul>
+              </div>
+              <div class="week-card">
+                <span class="h">Who moved</span>
+                <ul>
+                  <li><b>Saskia Lee</b> cold → aware (LinkedIn reply)</li>
+                  <li><b>Diya Ahuja</b> aware → interested (DM)</li>
+                  <li><b>Anya Costa</b> interested → advocate (intro)</li>
+                </ul>
+              </div>
+              <div class="week-card">
+                <span class="h">What we learned</span>
+                <ul>
+                  <li>Founder-voice clips drove 4× the named replies vs. cut-down</li>
+                  <li>Killing the carousel format. Not for this audience.</li>
+                </ul>
+              </div>
+              <div class="week-card highlight">
+                <span class="h">One thing from you</span>
+                <p class="ask">"15 minutes to record the 'why now' clip. Wednesday before 2pm."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module — Signal -->
+  <section class="module alt flip" id="signal">
+    <div class="module-inner">
+      <div class="module-copy">
+        <div class="module-eyebrow"><span class="num">04</span>Signal &amp; Learning</div>
+        <h2>Measure <span class="it">people,</span> not impressions.</h2>
+        <p class="lede">
+          We track which named humans moved from cold to advocate this week — and what we learned about why. Impressions are a side effect, not the goal.
+        </p>
+        <ul class="module-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Per-person timeline: every touch, reply, share, intro</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Movement deltas — week, quarter, named-person view</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Learnings tagged against the strategy — kept or killed</li>
+        </ul>
+        <a class="module-link" href="#book">See the signal model <span>→</span></a>
+      </div>
+      <div class="module-visual">
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="dot-row"><span></span><span></span><span></span></div>
+            <div class="label">signal · named-person movement</div>
+            <div class="crumbs">Q2 · weekly</div>
+          </div>
+          <div class="signal">
+            <div class="signal-head">
+              <div class="big">23<sub>moved this week</sub></div>
+              <div class="meta">+8 vs. last week · 81 in motion this quarter</div>
+            </div>
+            <div class="signal-chart">
+              <svg viewBox="0 0 600 130" preserveAspectRatio="none" aria-hidden="true">
+                <g stroke="#E8DFCF" stroke-width="1">
+                  <line x1="0" y1="40" x2="600" y2="40"/>
+                  <line x1="0" y1="80" x2="600" y2="80"/>
+                </g>
+                <polyline points="0,80 60,82 120,84 180,90 240,92 300,96 360,100 420,104 480,106 540,108 600,110" fill="none" stroke="#6F685D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="0,70 60,68 120,64 180,55 240,50 300,42 360,38 420,32 480,28 540,24 600,20" fill="none" stroke="#E6B340" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="0,90 60,88 120,86 180,80 240,72 300,68 360,60 420,52 480,46 540,40 600,34" fill="none" stroke="#D97757" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="0,118 60,118 120,116 180,114 240,112 300,108 360,104 420,100 480,94 540,86 600,76" fill="none" stroke="#6E8F6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="600" cy="20" r="3" fill="#E6B340"/>
+                <circle cx="600" cy="34" r="3" fill="#D97757"/>
+                <circle cx="600" cy="76" r="3" fill="#6E8F6B"/>
+              </svg>
+            </div>
+            <div class="signal-legend">
+              <span class="cold">Cold</span>
+              <span class="aware">Aware</span>
+              <span class="interest">Interested</span>
+              <span class="advocate">Advocate</span>
+            </div>
+            <div class="signal-moves">
+              <div class="signal-move">
+                <div class="av" data-tone="plum">SL</div>
+                <div class="info"><b>Saskia Lee</b><span>CTO · Northwind</span></div>
+                <span class="delta warm">cold → aware</span>
+              </div>
+              <div class="signal-move">
+                <div class="av">DA</div>
+                <div class="info"><b>Diya Ahuja</b><span>CMO · Lumen</span></div>
+                <span class="delta">aware → interested</span>
+              </div>
+              <div class="signal-move">
+                <div class="av" data-tone="sage">AC</div>
+                <div class="info"><b>Anya Costa</b><span>Partner · Vega</span></div>
+                <span class="delta">interested → advocate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module — Next Best Actions -->
+  <section class="module" id="next-best-actions">
+    <div class="module-inner">
+      <div class="module-copy">
+        <div class="module-eyebrow"><span class="num">05</span>Next Best Actions</div>
+        <h2>Every Monday, the system says what to do <span class="it">next.</span></h2>
+        <p class="lede">
+          No content calendar. No "ideas board". Each week the system ranks the highest-impact next moves — each one tied to a named person, a belief gap, and an expected delta in their temperature.
+        </p>
+        <ul class="module-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Every action tied to a person + belief gap + expected movement</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ranked by confidence — high, medium, exploratory</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Drawn from the full menu of plays — 20+ formats and counting</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Choose, ship, or kill — every move is your call</li>
+        </ul>
+        <a class="module-link" href="#execution">See the full menu <span>→</span></a>
+      </div>
+      <div class="module-visual">
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="dot-row"><span></span><span></span><span></span></div>
+            <div class="label">next-best-actions · week 17</div>
+            <div class="crumbs">6 ranked · 12 queued</div>
+          </div>
+          <div class="nba">
+            <div class="nba-head">
+              <h6>Recommended this week</h6>
+              <span class="meta">Ranked by expected movement</span>
+            </div>
+            <ol class="nba-list">
+              <li class="nba-item high">
+                <span class="rank">#1</span>
+                <span class="ftype" data-tone="ember">Essay</span>
+                <div class="body">
+                  <span class="t">"Content is not the goal. Movement is."</span>
+                  <span class="for">
+                    <span class="who"><span class="av" data-tone="ink">SL</span>Saskia Lee</span>
+                    <span>·</span>
+                    <span class="gap">cold → aware</span>
+                  </span>
+                </div>
+                <span class="action">Ship · Wed</span>
+              </li>
+              <li class="nba-item">
+                <span class="rank">#2</span>
+                <span class="ftype" data-tone="plum">DM</span>
+                <div class="body">
+                  <span class="t">Founder DM — riff on her "GTM is broken" post</span>
+                  <span class="for">
+                    <span class="who"><span class="av">DA</span>Diya Ahuja</span>
+                    <span>·</span>
+                    <span class="gap">aware → interested</span>
+                  </span>
+                </div>
+                <span class="action">Draft ready</span>
+              </li>
+              <li class="nba-item">
+                <span class="rank">#3</span>
+                <span class="ftype" data-tone="sage">Story</span>
+                <div class="body">
+                  <span class="t">Kiln × Priya · Series A → Series B</span>
+                  <span class="for">
+                    <span class="who"><span class="av" data-tone="sage">PR</span>+ 6 named buyers</span>
+                    <span>·</span>
+                    <span class="gap">"just an agency" → "a system"</span>
+                  </span>
+                </div>
+                <span class="action">Interview booked</span>
+              </li>
+              <li class="nba-item">
+                <span class="rank">#4</span>
+                <span class="ftype" data-tone="marigold">Clip</span>
+                <div class="body">
+                  <span class="t">30s vertical — founder on "random acts"</span>
+                  <span class="for">
+                    <span class="who"><span class="av" data-tone="plum">L</span>14 lighthouse contacts</span>
+                    <span>·</span>
+                    <span class="gap">awareness lift</span>
+                  </span>
+                </div>
+                <span class="action">Shoot Thu</span>
+              </li>
+              <li class="nba-item">
+                <span class="rank">#5</span>
+                <span class="ftype">Intro</span>
+                <div class="body">
+                  <span class="t">Warm intro from Priya — template ready</span>
+                  <span class="for">
+                    <span class="who"><span class="av">AC</span>Anya Costa</span>
+                    <span>·</span>
+                    <span class="gap">interested → advocate</span>
+                  </span>
+                </div>
+                <span class="action">Send</span>
+              </li>
+              <li class="nba-item">
+                <span class="rank">#6</span>
+                <span class="ftype" data-tone="ember">Event</span>
+                <div class="body">
+                  <span class="t">SF founder dinner · May 22</span>
+                  <span class="for">
+                    <span class="who"><span class="av" data-tone="ink">12</span>12 named CTOs</span>
+                    <span>·</span>
+                    <span class="gap">awareness · live trust</span>
+                  </span>
+                </div>
+                <span class="action">Hold dates</span>
+              </li>
+            </ol>
+
+            <!-- Full menu of play types -->
+            <div class="nba-menu">
+              <div class="nba-menu-head">
+                <span>The full menu · what we run</span>
+                <span>22 formats</span>
+              </div>
+              <div class="nba-menu-chips">
+                <span class="hot">Essay</span>
+                <span>Long-form post</span>
+                <span>Founder DM</span>
+                <span>Founder POV</span>
+                <span class="hot">Customer story</span>
+                <span>Multi-exec sprint</span>
+                <span class="hot">Vertical clip</span>
+                <span>Mini-doc</span>
+                <span>Launch film</span>
+                <span>Newsletter drop</span>
+                <span>Podcast pitch</span>
+                <span>PR pitch</span>
+                <span>Awards entry</span>
+                <span class="hot">Lighthouse touch</span>
+                <span>Bespoke gift</span>
+                <span>Warm intro</span>
+                <span>Sales follow-up</span>
+                <span>Webinar</span>
+                <span class="hot">Founder dinner</span>
+                <span>Salon</span>
+                <span>Conference play</span>
+                <span>Manifesto drop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXECUTION ===================== -->
+  <section class="section-divider dark" id="execution">
+    <div class="section-divider-inner">
+      <div>
+        <div class="label"><span class="num">02</span>Execution · the work</div>
+        <h2>The best <span class="it">operators</span> in the world, doing the right move at the right time.</h2>
+      </div>
+      <div>
+        <p class="lede">
+          When the system shows the right move, we make it happen. Videographers, editors, writers, event organisers, narrative leads and sales operators — the best in the world, orchestrated against your weekly plan. Every output traceable to a named person it was meant to move.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="execution-grid">
+    <div class="execution-grid-inner">
+
+      <!-- Founder content — feature size-3 -->
+      <a class="ex-card feature size-3" href="#founder-content" id="founder-content">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M21 3 10 14"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></span>01 · Founder content</div>
+        <h3 class="ex-title">Founder content — in <span class="it">your</span> voice.</h3>
+        <p class="ex-summary">Essays, posts, scripts and points-of-view, written from your thinking — not formulaic ghostwriter slop. Each piece tied to a belief gap and a named audience.</p>
+        <div class="ex-tags">
+          <span class="ex-tag">Long-form essays</span>
+          <span class="ex-tag">LinkedIn / X</span>
+          <span class="ex-tag">Founder POVs</span>
+          <span class="ex-tag">Newsletters</span>
+        </div>
+      </a>
+
+      <!-- Video — feature dark size-3 -->
+      <a class="ex-card dark size-3" href="#video" id="video">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="m17 10 5-3v10l-5-3Z"/></svg></span>02 · Video production</div>
+        <h3 class="ex-title">Video, <span class="it">done properly.</span></h3>
+        <p class="ex-summary">Directors, videographers, editors, motion designers — the best ones, not the cheapest. Founder Q&amp;As, customer films, mini-docs, launch films. Cut for the people you actually want watching.</p>
+        <div class="ex-tags">
+          <span class="ex-tag">Founder Q&amp;A</span>
+          <span class="ex-tag">Customer films</span>
+          <span class="ex-tag">Launch films</span>
+          <span class="ex-tag">Short-form cuts</span>
+        </div>
+      </a>
+
+      <!-- Customer stories — size-2 -->
+      <a class="ex-card size-2" href="#stories" id="stories">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9 8.5 8.5 0 0 1 8.5 8.5Z"/></svg></span>03 · Customer stories</div>
+        <h3 class="ex-title">Stories your buyers <span class="it">actually</span> believe.</h3>
+        <p class="ex-summary">Interview, write, film. Real specifics — not three bullet points and a pull quote.</p>
+      </a>
+
+      <!-- Launches — size-2 -->
+      <a class="ex-card size-2" href="#launches" id="launches">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 9.5 19 5l-1 6-4.5-1.5Z"/><path d="M9.5 14.5 5 19l6-1-1.5-4Z"/><path d="m13 11-2 2"/><path d="M19 5c-3 6-6 9-12 12"/></svg></span>04 · Launches</div>
+        <h3 class="ex-title">Moments your market <span class="it">can't ignore.</span></h3>
+        <p class="ex-summary">Product launches, manifestos, category-defining moves. Built into the 90-day arc, not bolted on.</p>
+      </a>
+
+      <!-- Events — size-2 -->
+      <a class="ex-card size-2" href="#events" id="events">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg></span>05 · Events &amp; activations</div>
+        <h3 class="ex-title">Rooms where <span class="it">it matters.</span></h3>
+        <p class="ex-summary">Curated dinners, salons, conference activations, founder gatherings. Booked, produced, followed up.</p>
+      </a>
+
+      <!-- Lighthouse — size-3 -->
+      <a class="ex-card size-3" href="#lighthouse" id="lighthouse">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3"/><path d="M5 22h14"/><path d="M8 22 9 8h6l1 14"/><circle cx="12" cy="7" r="2"/></svg></span>06 · Lighthouse plays</div>
+        <h3 class="ex-title">Get the brands <span class="it">that move others</span> to back you.</h3>
+        <p class="ex-summary">The 10–30 lighthouse accounts whose endorsement compounds. We plan the touch-sequence, ship the work, and track each one named.</p>
+        <div class="ex-tags">
+          <span class="ex-tag">Targeted essays</span>
+          <span class="ex-tag">Bespoke gifting</span>
+          <span class="ex-tag">Founder dinners</span>
+          <span class="ex-tag">Named follow-up</span>
+        </div>
+      </a>
+
+      <!-- PR — size-3 -->
+      <a class="ex-card size-3" href="#pr" id="pr">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h2l3.5 3.5A1 1 0 0 0 11 18V6a1 1 0 0 0-1.5-.9L6 9H4a1 1 0 0 0-1 1Z"/><path d="M16 7s2 1.5 2 5-2 5-2 5"/><path d="M20 4s3 2.5 3 8-3 8-3 8"/></svg></span>07 · PR &amp; narrative</div>
+        <h3 class="ex-title">Tell the right story, to the <span class="it">right rooms.</span></h3>
+        <p class="ex-summary">Narrative work with category-defining publications and podcasts. Pitched against your belief gaps — not just "press hits".</p>
+      </a>
+
+      <!-- Sales follow-up — size-2 -->
+      <a class="ex-card size-2" href="#relationship" id="relationship">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>08 · Relationship &amp; sales</div>
+        <h3 class="ex-title">Warm follow-ups, <span class="it">tied to who moved.</span></h3>
+        <p class="ex-summary">When Signal shows someone went cold → aware, we tell sales what to say next — and ship the message.</p>
+      </a>
+
+      <!-- Fundraise warm-up — size-2 -->
+      <a class="ex-card size-2" href="#fundraise" id="fundraise">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>09 · Fundraise warm-up</div>
+        <h3 class="ex-title">Investors know you <span class="it">before</span> you ask.</h3>
+        <p class="ex-summary">A 3–6 month investor warm-up — content, founder posts, lighthouse moves — so the raise opens warm.</p>
+      </a>
+
+      <!-- Multi-exec content — size-2 -->
+      <a class="ex-card size-2" href="#multi-exec" id="multi-exec">
+        <div class="ex-eyebrow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 21v-1a5 5 0 0 1 5-5"/><path d="M21 21v-1a5 5 0 0 0-5-5"/><circle cx="12" cy="16" r="3"/></svg></span>10 · Multi-exec content</div>
+        <h3 class="ex-title">Your <span class="it">whole team</span> on the field.</h3>
+        <p class="ex-summary">CEO, CTO, head of product, head of sales — each with a voice tied to a belief gap and an audience.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== OFFERINGS TEASER ===================== -->
+  <section class="offerings-teaser" id="offerings">
+    <div class="ot-inner">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ink-300); margin-bottom: var(--space-3);">How you work with us</div>
+        <h2>OS. <span class="it">Function.</span> Orchestration packs.</h2>
+        <p>Pick the depth that fits the moment. The OS is the brain — software you run. The Function is the weekly operator. Orchestration packs are the big moves, on top.</p>
+        <a class="k-btn k-btn--primary k-btn--lg" href="offerings.html">See all offerings <span class="arrow">→</span></a>
+      </div>
+      <div class="ot-cards">
+        <a class="ot-card os" href="offerings.html#os">
+          <span class="tag">Brain</span>
+          <span class="body">
+            <b>Organic GTM OS</b>
+            <span>The software-led layer. Map, strategy, weekly actions, signal.</span>
+          </span>
+          <span class="price">$2k–$4k<small>per month</small></span>
+        </a>
+        <a class="ot-card fn" href="offerings.html#function">
+          <span class="tag">Operator</span>
+          <span class="body">
+            <b>Organic GTM Function</b>
+            <span>The weekly operator. Map, decide, prepare, execute, report.</span>
+          </span>
+          <span class="price">$8k+<small>per month</small></span>
+        </a>
+        <a class="ot-card packs" href="offerings.html#packs">
+          <span class="tag">Big move</span>
+          <span class="body">
+            <b>Orchestration Packs</b>
+            <span>Launch, video shoot, lighthouse activation, fundraise warm-up.</span>
+          </span>
+          <span class="price">$5k–$100k+<small>per pack</small></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta-section" id="book">
+    <div class="grain"></div>
+    <div class="cta-inner">
+      <h2>Less cold, <span class="it">every week.</span></h2>
+      <p>60-minute working session. We'll map your 20–500 live on the call, and you'll leave with the first weeks of the arc sketched.</p>
+      <div class="cta-actions">
+        <a class="k-btn k-btn--primary k-btn--lg" href="#">Start building trust <span class="arrow">→</span></a>
+        <a class="k-btn k-btn--ghost k-btn--lg" href="manifesto.html">Read the manifesto</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="k-footer-mount"></div>
+</main>
+
+<script src="shared.js"></script>
+<script>
+  // Anchor nav scrollspy
+  (function() {
+    const links = document.querySelectorAll('.anchor-nav a');
+    const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    function onScroll() {
+      const y = window.scrollY + 140;
+      let active = sections[0];
+      for (const s of sections) { if (s && s.offsetTop <= y) active = s; }
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + active.id));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+</body>
+</html>

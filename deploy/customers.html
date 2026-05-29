@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kindling — Customers</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  body { background: var(--parchment-50); color: var(--ink-900); }
+
+  /* ============== Tight title strip ============== */
+  .c-title {
+    border-bottom: 1px solid var(--color-line);
+    padding: var(--space-6) 0 var(--space-5);
+  }
+  .c-title-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 var(--space-6);
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: var(--space-5);
+  }
+  @media (max-width: 700px) { .c-title-inner { flex-direction: column; align-items: flex-start; gap: var(--space-3); } }
+  .c-title h1 {
+    margin: 0;
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(28px, 3vw, 40px); line-height: 1;
+    letter-spacing: -0.015em;
+    color: var(--ink-900);
+  }
+  .c-title h1 b {
+    font-family: var(--font-utility); font-style: normal; font-weight: 700;
+    color: var(--ember-600); letter-spacing: -0.02em;
+  }
+  .c-title .sub {
+    font-family: var(--font-mono); font-size: 11.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300);
+  }
+
+  /* ============== Stories list ============== */
+  .stories { padding: var(--space-7) 0 var(--space-9); }
+  .stories-inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+
+  .story {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: var(--space-6);
+    align-items: stretch;
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--color-line);
+    text-decoration: none; color: inherit;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+  .story:hover .photo { transform: scale(1.01); }
+  .story:hover .read { transform: translateX(4px); }
+  @media (max-width: 900px) { .story { grid-template-columns: 1fr; gap: var(--space-4); padding: var(--space-5) 0; } }
+
+  /* "Photo" tile — premium gradient + big logo */
+  .photo {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform var(--dur-slow) var(--ease-out);
+    box-shadow: 0 24px 48px -24px rgba(20,17,13,0.35);
+  }
+  .photo::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url('assets/texture/paper-grain.png');
+    background-size: 460px; opacity: 0.10;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .photo::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.10), transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(0,0,0,0.20), transparent 60%);
+    pointer-events: none;
+  }
+  .photo[data-tone="lorikeet"] {
+    background:
+      radial-gradient(circle at 32% 28%, #2a1e1a 0%, #0E0E0E 60%, #050505 100%);
+  }
+  .photo[data-tone="superpower"] {
+    background:
+      radial-gradient(circle at 70% 50%, #f6a35c 0%, #c25d2c 30%, #18120e 80%);
+  }
+  .photo[data-tone="kpmg"] {
+    background:
+      linear-gradient(135deg, #002a73 0%, #00338D 45%, #003fb0 100%);
+  }
+  .photo[data-tone="heo"] {
+    background:
+      radial-gradient(circle at 25% 75%, #2d3a5c 0%, #182335 50%, #0a1020 100%);
+  }
+  .photo[data-tone="bifrost"] {
+    background:
+      linear-gradient(135deg, #e7e0ff 0%, #cabaff 45%, #efe9ff 100%);
+  }
+
+  .photo-tag {
+    position: absolute; top: var(--space-4); left: var(--space-4);
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: rgba(255,255,255,0.65); z-index: 2;
+  }
+  .photo[data-tone="bifrost"] .photo-tag { color: rgba(20,17,13,0.55); }
+
+  .photo-logo {
+    position: relative; z-index: 2;
+    width: min(55%, 280px);
+  }
+  .photo-logo img {
+    width: 100%; height: auto; display: block;
+    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.35));
+  }
+  .photo[data-tone="lorikeet"] .photo-logo,
+  .photo[data-tone="kpmg"] .photo-logo {
+    background: var(--parchment-50);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-6);
+    box-shadow: 0 24px 48px -16px rgba(0,0,0,0.5);
+  }
+
+  /* Copy block */
+  .story-copy {
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: var(--space-3) 0;
+    gap: var(--space-5);
+  }
+  .meta {
+    display: flex; align-items: baseline; gap: var(--space-3);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300);
+  }
+  .meta b { color: var(--ink-900); font-weight: 600; font-family: var(--font-utility); font-size: 13px; text-transform: none; letter-spacing: -0.005em; }
+
+  .value {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(28px, 3.2vw, 44px); line-height: 1.1;
+    letter-spacing: -0.018em;
+    color: var(--ink-900); margin: 0;
+    text-wrap: balance;
+    max-width: 22ch;
+  }
+  .value b {
+    font-family: var(--font-utility); font-style: normal; font-weight: 700;
+    color: var(--ember-600); letter-spacing: -0.025em;
+  }
+
+  .bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-line);
+  }
+  .stat {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+    color: var(--ink-300);
+  }
+  .stat b {
+    font-family: var(--font-utility); font-weight: 700;
+    font-size: 18px; letter-spacing: -0.015em;
+    color: var(--ink-900); text-transform: none;
+  }
+  .read {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-utility); font-weight: 600;
+    font-size: 13px; color: var(--ink-900);
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .read .arrow { color: var(--ember-600); }
+
+  /* ============== Tiny CTA ============== */
+  .cta-band {
+    border-top: 1px solid var(--color-line);
+    padding: var(--space-7) 0;
+    text-align: center;
+  }
+  .cta-band p {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px); line-height: 1.15;
+    letter-spacing: -0.018em; color: var(--ink-900);
+    margin: 0 0 var(--space-4); max-width: 22ch; margin-inline: auto;
+  }
+  .cta-band p b { font-family: var(--font-utility); font-style: normal; font-weight: 700; color: var(--ember-600); }
+  .cta-band .acts { display: inline-flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+
+<div id="k-header-mount" data-mode="light" data-active="customers"></div>
+
+<main>
+
+  <!-- Tight title strip -->
+  <section class="c-title">
+    <div class="c-title-inner">
+      <h1>Companies that became <b>impossible to ignore.</b></h1>
+      <div class="sub">5 stories · running Kindling today</div>
+    </div>
+  </section>
+
+  <!-- Stories -->
+  <section class="stories">
+    <div class="stories-inner">
+
+      <a class="story" href="#story-lorikeet">
+        <div class="photo" data-tone="lorikeet">
+          <span class="photo-tag">01 · CX for enterprise</span>
+          <div class="photo-logo"><img src="assets/logos/lorikeet.png" alt="Lorikeet" /></div>
+        </div>
+        <div class="story-copy">
+          <div class="meta"><b>Lorikeet</b><span>·</span>Series A → B</div>
+          <p class="value">Named by every CX leader they needed — <b>before</b> the Series B opened.</p>
+          <div class="bottom">
+            <div class="stat"><b>+200</b> named buyers warmed</div>
+            <span class="read">Read story <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="story" href="#story-superpower">
+        <div class="photo" data-tone="superpower">
+          <span class="photo-tag">02 · Consumer health</span>
+          <div class="photo-logo"><img src="assets/logos/superpower.png" alt="Superpower" /></div>
+        </div>
+        <div class="story-copy">
+          <div class="meta"><b>Superpower</b><span>·</span>Membership</div>
+          <p class="value">Founder voice the market <b>actually believed</b> — and a doubled waitlist.</p>
+          <div class="bottom">
+            <div class="stat"><b>2×</b> member waitlist · 90 days</div>
+            <span class="read">Read story <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="story" href="#story-kpmg">
+        <div class="photo" data-tone="kpmg">
+          <span class="photo-tag">03 · Enterprise partnerships</span>
+          <div class="photo-logo"><img src="assets/logos/kpmg.png" alt="KPMG" /></div>
+        </div>
+        <div class="story-copy">
+          <div class="meta"><b>KPMG</b><span>·</span>Innovation</div>
+          <p class="value">Thirty named partners moved into one launch — as a <b>single conversation</b>.</p>
+          <div class="bottom">
+            <div class="stat"><b>30</b> named enterprise partners</div>
+            <span class="read">Read story <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="story" href="#story-heo">
+        <div class="photo" data-tone="heo">
+          <span class="photo-tag">04 · Aerospace</span>
+          <div class="photo-logo"><img src="assets/logos/heo.jpeg" alt="HEO" /></div>
+        </div>
+        <div class="story-copy">
+          <div class="meta"><b>HEO</b><span>·</span>Category creation</div>
+          <p class="value">Made "space transparency" a category — before sales <b>even scaled</b>.</p>
+          <div class="bottom">
+            <div class="stat"><b>1st</b> named in category</div>
+            <span class="read">Read story <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="story" href="#story-bifrost">
+        <div class="photo" data-tone="bifrost">
+          <span class="photo-tag">05 · Infrastructure</span>
+          <div class="photo-logo"><img src="assets/logos/bifrost.png" alt="Bifrost" /></div>
+        </div>
+        <div class="story-copy">
+          <div class="meta"><b>Bifrost</b><span>·</span>Community-led</div>
+          <p class="value">Twelve lighthouses, four hundred community — <b>zero paid spend</b>.</p>
+          <div class="bottom">
+            <div class="stat"><b>12 → 400</b> community, organic</div>
+            <span class="read">Read story <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Tiny CTA -->
+  <section class="cta-band">
+    <p>Your story is <b>next.</b></p>
+    <div class="acts">
+      <a class="k-btn k-btn--primary k-btn--lg" href="#">Start building trust <span class="arrow">→</span></a>
+      <a class="k-btn k-btn--ghost k-btn--lg" href="how-it-works.html" style="border-color: var(--ink-900); color: var(--ink-900);">See how it works</a>
+    </div>
+  </section>
+
+  <div id="k-footer-mount"></div>
+</main>
+
+<script src="shared.js"></script>
+</body>
+</html>
